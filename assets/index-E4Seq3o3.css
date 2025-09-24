@@ -679,3 +679,63 @@
   }
 }
 
+
+
+/* === Edge bleed for LIST cards (handles parent padding) === */
+:where(.character-card){position:relative!important;}
+
+/* If the parent card has horizontal padding (e.g., p-4 = 16px), let the first child bleed out */
+:where(.character-card) > :first-child{
+  margin-top:0!important;
+  padding-top:0!important;
+  /* assume typical padding x=16px; adjust if needed */
+  width: calc(100% + 32px) !important;
+  margin-left: -16px !important;
+  margin-right: -16px !important;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow:hidden!important;
+  line-height:0!important;
+}
+
+/* Ensure the image fills that area fully */
+:where(.character-card) > :first-child img,
+:where(.character-card) > :first-child picture{
+  display:block!important;
+  width:100%!important;
+  height:205px!important;
+  object-fit:cover!important;
+  object-position:center top!important;
+  margin:0!important;padding:0!important;border:0!important;
+  border-top-left-radius:12px!important;border-top-right-radius:12px!important;
+}
+
+/* Mobile tweak */
+@media (max-width:768px){
+  :where(.character-card) > :first-child img,
+  :where(.character-card) > :first-child picture{
+    height:185px!important;
+  }
+}
+
+/* === Modal header hairline fix === */
+:where(.modal, .dialog, .character-modal) .image-container,
+:where(.modal, .dialog, .character-modal) .header,
+:where(.modal, .dialog, .character-modal) .banner{
+  background:transparent!important;
+  border:0!important;
+  outline:1px solid transparent!important; /* avoids anti-alias seam */
+  -webkit-transform: translateZ(0); /* GPU compositing to reduce hairline artifacts */
+  transform: translateZ(0);
+  border-top-left-radius: 14px!important;
+  border-top-right-radius: 14px!important;
+  overflow:hidden!important;
+}
+:where(.modal, .dialog, .character-modal) .image-container img{
+  display:block!important;margin:0!important;padding:0!important;border:0!important;
+  width:100%!important;height:auto!important;object-fit:cover!important;object-position:center top!important;
+  border-top-left-radius:14px!important;border-top-right-radius:14px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
