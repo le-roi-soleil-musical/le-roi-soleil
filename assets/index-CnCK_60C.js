@@ -234,6 +234,9 @@ function scrollToSection(sectionId) {
 }
 
 // Ajouter le menu mobile au DOM
+
+// Expose functions for inline handlers
+typeof window!=="undefined" && (window.toggleMobileMenu = toggleMobileMenu, window.scrollToSection = scrollToSection);
 document.addEventListener("DOMContentLoaded", function() {
     const mobileMenuHTML = `
         <button class="mobile-menu-button" onclick="toggleMobileMenu()">
@@ -254,5 +257,12 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     
     document.body.insertAdjacentHTML("beforeend", mobileMenuHTML);
+    try {
+        const btn = document.querySelector('.mobile-menu-button');
+        if (btn) btn.addEventListener('click', toggleMobileMenu);
+        const closeBtn = document.querySelector('.mobile-menu-close');
+        if (closeBtn) closeBtn.addEventListener('click', toggleMobileMenu);
+    } catch (e) {}
+
 });
 
