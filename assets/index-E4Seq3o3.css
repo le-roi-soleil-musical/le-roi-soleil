@@ -293,3 +293,114 @@
 .character-card {
     transition: all 0.3s ease !important;
 }
+/* Corrections pour améliorer la lisibilité des pastilles */
+
+/* Pastilles de type avec meilleur contraste */
+.character-card .type-badge {
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 4px 12px !important;
+    border-radius: 15px !important;
+    font-size: 0.75rem !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(5px) !important;
+}
+
+/* Pastilles spécifiques par type pour meilleure lisibilité */
+.character-card .type-badge.royaute {
+    background: linear-gradient(45deg, #8b4513, #d4af37) !important;
+    color: white !important;
+}
+
+.character-card .type-badge.courtisane {
+    background: linear-gradient(45deg, #dc2626, #f59e0b) !important;
+    color: white !important;
+}
+
+.character-card .type-badge.dame-de-cour {
+    background: linear-gradient(45deg, #7c3aed, #ec4899) !important;
+    color: white !important;
+}
+
+.character-card .type-badge.les-gens {
+    background: linear-gradient(45deg, #dc2626, #991b1b) !important;
+    color: white !important;
+}
+
+.character-card .type-badge.premier-ministre {
+    background: linear-gradient(45deg, #1e40af, #3730a3) !important;
+    color: white !important;
+}
+
+/* Emoji badges avec meilleur contraste */
+.character-card .emoji-badge {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* Amélioration des badges de compétences */
+.character-card .skill-badge {
+    background: rgba(139, 69, 19, 0.9) !important;
+    color: white !important;
+    font-weight: 500 !important;
+    padding: 3px 8px !important;
+    border-radius: 12px !important;
+    font-size: 0.7rem !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Pastilles avec couleurs spécifiques et lisibles */
+.bg-amber-100 {
+    background: rgba(139, 69, 19, 0.9) !important;
+    color: white !important;
+}
+
+.bg-rose-100 {
+    background: rgba(220, 38, 38, 0.9) !important;
+    color: white !important;
+}
+
+.bg-purple-100 {
+    background: rgba(124, 58, 237, 0.9) !important;
+    color: white !important;
+}
+
+.bg-blue-100 {
+    background: rgba(30, 64, 175, 0.9) !important;
+    color: white !important;
+}
+
+.bg-green-100 {
+    background: rgba(22, 101, 52, 0.9) !important;
+    color: white !important;
+}
+
+.bg-orange-100 {
+    background: rgba(194, 65, 12, 0.9) !important;
+    color: white !important;
+}
+
+/* Assurer la lisibilité du texte sur toutes les pastilles */
+.character-card .badge,
+.character-card .type-badge,
+.character-card .skill-badge {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.025em !important;
+}
+
+/* Hover effects pour les pastilles */
+.character-card:hover .type-badge {
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.character-card:hover .emoji-badge {
+    transform: scale(1.1) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
