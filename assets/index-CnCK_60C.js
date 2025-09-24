@@ -237,6 +237,53 @@ function scrollToSection(sectionId) {
 
 // Expose functions for inline handlers
 typeof window!=="undefined" && (window.toggleMobileMenu = toggleMobileMenu, window.scrollToSection = scrollToSection);
+
+// === Runtime fix: make grid character cards' top images edge-to-edge with rounded corners
+function __fixCharacterGridImages(){
+  try{
+    const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
+    grids.forEach(grid=>{
+      const cards = grid.querySelectorAll('[class*="card"], .character-card, .card');
+      cards.forEach(card=>{
+        if (card.__edgeFixed) return;
+        card.__edgeFixed = true;
+        card.style.overflow = 'hidden';
+        if (!card.style.borderRadius) card.style.borderRadius = '12px';
+        let img = card.querySelector('img');
+        if (!img) return;
+        const first = card.firstElementChild;
+        if (first && first !== img) {
+          first.style.marginTop = '0';
+          first.style.paddingTop = '0';
+          first.style.borderTopLeftRadius = '12px';
+          first.style.borderTopRightRadius = '12px';
+          first.style.overflow = 'hidden';
+          try{
+            const cs = getComputedStyle(card);
+            const px = parseFloat(cs.paddingLeft||'0');
+            if (px>0){
+              first.style.width = `calc(100% + ${px*2}px)`;
+              first.style.marginLeft = `-${px}px`;
+              first.style.marginRight = `-${px}px`;
+            }
+          }catch(e){}
+        }
+        img.style.display = 'block';
+        img.style.margin = '0';
+        img.style.padding = '0';
+        img.style.width = '100%';
+        img.style.height = '205px';
+        img.style.objectFit = 'cover';
+        img.style.objectPosition = 'center top';
+        img.style.borderTopLeftRadius = '12px';
+        img.style.borderTopRightRadius = '12px';
+      });
+    });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages(); setTimeout(__fixCharacterGridImages, 400); });
+window.addEventListener('resize', ()=>{ __fixCharacterGridImages(); });
+
 document.addEventListener("DOMContentLoaded", function() {
     const mobileMenuHTML = `
         <button class="mobile-menu-button" onclick="toggleMobileMenu()">
