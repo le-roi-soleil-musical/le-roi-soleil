@@ -404,3 +404,136 @@
     transform: scale(1.1) !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
 }
+/* Corrections spécifiques pour les pastilles de type et images */
+
+/* 1. Images qui touchent parfaitement les bords et le haut */
+.character-card {
+    overflow: hidden !important;
+    border-radius: 12px !important;
+}
+
+.character-card .image-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    position: relative !important;
+    height: 200px !important;
+    overflow: hidden !important;
+}
+
+.character-card img {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    display: block !important;
+}
+
+/* 2. Pastilles de type (en bas à gauche des images) avec meilleur contraste */
+.character-card .type-badge {
+    position: absolute !important;
+    bottom: 8px !important;
+    left: 8px !important;
+    background: rgba(0, 0, 0, 0.85) !important;
+    color: white !important;
+    padding: 4px 12px !important;
+    border-radius: 15px !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(8px) !important;
+    z-index: 10 !important;
+    letter-spacing: 0.025em !important;
+}
+
+/* 3. Pastilles spécifiques pour "Dame de cour" */
+.character-card .type-badge:contains("Dame de cour"),
+.character-card [class*="dame"] {
+    background: rgba(139, 69, 19, 0.9) !important;
+    color: white !important;
+    border: 1px solid rgba(212, 175, 55, 0.5) !important;
+}
+
+/* 4. Pastilles spécifiques pour "Les gens" */
+.character-card .type-badge:contains("Les gens"),
+.character-card [class*="gens"] {
+    background: rgba(220, 38, 38, 0.9) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+}
+
+/* 5. Toutes les pastilles de type avec contraste maximal */
+.character-card .type-badge,
+.character-card [class*="badge"] {
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+/* 6. Emoji badges (en haut à droite) */
+.character-card .emoji-badge {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.2rem !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    border: 2px solid rgba(0, 0, 0, 0.1) !important;
+    z-index: 10 !important;
+}
+
+/* 7. Container de l'image sans espacement */
+.character-card .relative {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 8. Assurer que l'image remplit complètement l'espace */
+.character-card .w-full.h-48 {
+    height: 200px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 9. Hover effects pour les pastilles */
+.character-card:hover .type-badge {
+    transform: scale(1.05) !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 10. Responsive pour mobile */
+@media (max-width: 768px) {
+    .character-card .image-container {
+        height: 180px !important;
+    }
+    
+    .character-card img {
+        height: 180px !important;
+    }
+    
+    .character-card .type-badge {
+        font-size: 0.7rem !important;
+        padding: 3px 10px !important;
+    }
+    
+    .character-card .emoji-badge {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1rem !important;
+    }
+}
