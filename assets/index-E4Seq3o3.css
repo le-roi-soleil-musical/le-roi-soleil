@@ -538,79 +538,39 @@
     }
 }
 
-
-/* === Edge-fit tweaks (assistant) === */
-.character-card { 
-  overflow: hidden !important; 
-  padding: 0 !important;
+/* Force l'alignement parfait des images dans React */
+.character-card {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
 }
 
-/* Image should touch left/right/top edges of the card */
-.character-card .image-container {
-  margin: 0 !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
-  position: relative !important;
-  height: 205px !important; /* +5px */
-  overflow: hidden !important;
+.character-card > div:first-child {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 12px 12px 0 0 !important;
+    overflow: hidden !important;
 }
 
-/* Ensure the image fills the container fully */
 .character-card img {
-  display: block !important;
-  width: 100% !important;
-  height: 205px !important; /* +5px */
-  object-fit: cover !important;
-  object-position: center top !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 12px 12px 0 0 !important;
+    width: 100% !important;
+    height: 192px !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 
-/* Mobile: keep the same behavior and add +5px as well */
-@media (max-width: 768px) {
-  .character-card .image-container,
-  .character-card img {
-    height: 185px !important; /* 180 + 5px */
-  }
+.character-card .relative {
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 12px 12px 0 0 !important;
 }
 
-
-
-/* === Edge-fit tweaks with rounded top corners (assistant) === */
-.character-card { 
-  overflow: hidden !important; 
-  padding: 0 !important;
-  border-radius: 12px !important; /* keep card rounded corners */
-}
-
-/* Image container flush with card edges */
-.character-card .image-container {
-  margin: 0 !important;
-  padding: 0 !important;
-  border-radius: 12px 12px 0 0 !important; /* rounded top only */
-  position: relative !important;
-  height: 205px !important;
-  overflow: hidden !important;
-}
-
-/* Ensure image fills container, with top rounded corners visible */
-.character-card img {
-  display: block !important;
-  width: 100% !important;
-  height: 205px !important;
-  object-fit: cover !important;
-  object-position: center top !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border-radius: 12px 12px 0 0 !important; /* round the top of the image */
-}
-
-/* Mobile adjustment */
-@media (max-width: 768px) {
-  .character-card .image-container,
-  .character-card img {
-    height: 185px !important;
-  }
+/* Contenu de la carte avec padding seulement sur le texte */
+.character-card > div:last-child {
+    padding: 16px !important;
 }
 
