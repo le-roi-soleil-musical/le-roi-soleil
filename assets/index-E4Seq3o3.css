@@ -739,3 +739,40 @@
   box-shadow:none!important;
 }
 
+
+
+/* === Grid card top-image edge-fit (static CSS) === */
+/* remove top padding so image touches the top edge */
+.characters-grid [data-slot="card"]{
+  padding-top: 0 !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+}
+/* bleed the image wrapper over card's horizontal padding (Tailwind p-6 => 24px) */
+.characters-grid [data-slot="card"] > .relative{
+  margin-left: -24px !important;
+  margin-right: -24px !important;
+  width: calc(100% + 48px) !important;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+  overflow: hidden !important;
+  line-height: 0 !important;
+}
+/* image fills wrapper perfectly */
+.characters-grid [data-slot="card"] > .relative > img{
+  display: block !important;
+  width: 100% !important;
+  height: 205px !important; /* +5px desktop */
+  object-fit: cover !important;
+  object-position: center top !important;
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+}
+@media (max-width: 768px){
+  .characters-grid [data-slot="card"] > .relative > img{
+    height: 185px !important; /* +5px mobile */
+  }
+}
+/* Optional: if a border creates a hairline, remove it */
+.characters-grid [data-slot="card"]{ border: 0 !important; }
+

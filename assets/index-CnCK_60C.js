@@ -239,7 +239,76 @@ function scrollToSection(sectionId) {
 typeof window!=="undefined" && (window.toggleMobileMenu = toggleMobileMenu, window.scrollToSection = scrollToSection);
 
 // === Runtime fix: make grid character cards' top images edge-to-edge with rounded corners
-function __fixCharacterGridImages(){
+function 
+// === Enhanced: also shift card horizontal padding to the content so image can bleed edge-to-edge
+function __fixCharacterGridImages_v2(){
+  try{
+    const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
+    grids.forEach(grid=>{
+      const cards = grid.querySelectorAll('[class*="card"], .character-card, .card');
+      cards.forEach(card=>{
+        if (card.__edgeFixedV2) return;
+        card.__edgeFixedV2 = true;
+
+        // Ensure rounding/overflow on the card
+        card.style.overflow = 'hidden';
+        if (!card.style.borderRadius) card.style.borderRadius = '12px';
+
+        // Read current horizontal padding on the card
+        const cs = getComputedStyle(card);
+        const padL = parseFloat(cs.paddingLeft||'0');
+        const padR = parseFloat(cs.paddingRight||'0');
+        const padT = parseFloat(cs.paddingTop||'0');
+
+        const first = card.firstElementChild;
+        const second = first ? first.nextElementSibling : null;
+        const img = first ? first.querySelector('img') || first.querySelector('picture img') || card.querySelector('img') : card.querySelector('img');
+
+        // If the card has horizontal padding, move it to the content (second child) to free the image to span full width
+        if ((padL>0 || padR>0) && second){
+          // Remove horizontal padding from the card
+          card.style.paddingLeft = '0px';
+          card.style.paddingRight = '0px';
+          // Keep top padding as-is
+          if (padT>0) card.style.paddingTop = padT+'px';
+
+          // Apply the same padding to the content block
+          const scs = getComputedStyle(second);
+          const existingPL = parseFloat(scs.paddingLeft||'0');
+          const existingPR = parseFloat(scs.paddingRight||'0');
+          second.style.paddingLeft  = (existingPL + padL) + 'px';
+          second.style.paddingRight = (existingPR + padR) + 'px';
+        }
+
+        // Prepare the first wrapper (image container) to bleed
+        if (first){
+          first.style.marginTop = '0';
+          first.style.padding = '0';
+          first.style.borderTopLeftRadius = '12px';
+          first.style.borderTopRightRadius = '12px';
+          first.style.overflow = 'hidden';
+          first.style.width = '100%';
+        }
+
+        if (img){
+          img.style.display = 'block';
+          img.style.margin = '0';
+          img.style.padding = '0';
+          img.style.width = '100%';
+          img.style.height = '205px';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'center top';
+          img.style.borderTopLeftRadius = '12px';
+          img.style.borderTopRightRadius = '12px';
+        }
+      });
+    });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages_v2(); setTimeout(__fixCharacterGridImages_v2, 400); });
+window.addEventListener('resize', ()=>{ __fixCharacterGridImages_v2(); });
+
+__fixCharacterGridImages(){
   try{
     const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
     grids.forEach(grid=>{
@@ -281,8 +350,285 @@ function __fixCharacterGridImages(){
     });
   }catch(e){}
 }
-document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages(); setTimeout(__fixCharacterGridImages, 400); });
-window.addEventListener('resize', ()=>{ __fixCharacterGridImages(); });
+document.addEventListener('DOMContentLoaded', ()=>{ 
+// === Enhanced: also shift card horizontal padding to the content so image can bleed edge-to-edge
+function __fixCharacterGridImages_v2(){
+  try{
+    const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
+    grids.forEach(grid=>{
+      const cards = grid.querySelectorAll('[class*="card"], .character-card, .card');
+      cards.forEach(card=>{
+        if (card.__edgeFixedV2) return;
+        card.__edgeFixedV2 = true;
+
+        // Ensure rounding/overflow on the card
+        card.style.overflow = 'hidden';
+        if (!card.style.borderRadius) card.style.borderRadius = '12px';
+
+        // Read current horizontal padding on the card
+        const cs = getComputedStyle(card);
+        const padL = parseFloat(cs.paddingLeft||'0');
+        const padR = parseFloat(cs.paddingRight||'0');
+        const padT = parseFloat(cs.paddingTop||'0');
+
+        const first = card.firstElementChild;
+        const second = first ? first.nextElementSibling : null;
+        const img = first ? first.querySelector('img') || first.querySelector('picture img') || card.querySelector('img') : card.querySelector('img');
+
+        // If the card has horizontal padding, move it to the content (second child) to free the image to span full width
+        if ((padL>0 || padR>0) && second){
+          // Remove horizontal padding from the card
+          card.style.paddingLeft = '0px';
+          card.style.paddingRight = '0px';
+          // Keep top padding as-is
+          if (padT>0) card.style.paddingTop = padT+'px';
+
+          // Apply the same padding to the content block
+          const scs = getComputedStyle(second);
+          const existingPL = parseFloat(scs.paddingLeft||'0');
+          const existingPR = parseFloat(scs.paddingRight||'0');
+          second.style.paddingLeft  = (existingPL + padL) + 'px';
+          second.style.paddingRight = (existingPR + padR) + 'px';
+        }
+
+        // Prepare the first wrapper (image container) to bleed
+        if (first){
+          first.style.marginTop = '0';
+          first.style.padding = '0';
+          first.style.borderTopLeftRadius = '12px';
+          first.style.borderTopRightRadius = '12px';
+          first.style.overflow = 'hidden';
+          first.style.width = '100%';
+        }
+
+        if (img){
+          img.style.display = 'block';
+          img.style.margin = '0';
+          img.style.padding = '0';
+          img.style.width = '100%';
+          img.style.height = '205px';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'center top';
+          img.style.borderTopLeftRadius = '12px';
+          img.style.borderTopRightRadius = '12px';
+        }
+      });
+    });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages_v2(); setTimeout(__fixCharacterGridImages_v2, 400); });
+window.addEventListener('resize', ()=>{ __fixCharacterGridImages_v2(); });
+
+__fixCharacterGridImages(); setTimeout(
+// === Enhanced: also shift card horizontal padding to the content so image can bleed edge-to-edge
+function __fixCharacterGridImages_v2(){
+  try{
+    const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
+    grids.forEach(grid=>{
+      const cards = grid.querySelectorAll('[class*="card"], .character-card, .card');
+      cards.forEach(card=>{
+        if (card.__edgeFixedV2) return;
+        card.__edgeFixedV2 = true;
+
+        // Ensure rounding/overflow on the card
+        card.style.overflow = 'hidden';
+        if (!card.style.borderRadius) card.style.borderRadius = '12px';
+
+        // Read current horizontal padding on the card
+        const cs = getComputedStyle(card);
+        const padL = parseFloat(cs.paddingLeft||'0');
+        const padR = parseFloat(cs.paddingRight||'0');
+        const padT = parseFloat(cs.paddingTop||'0');
+
+        const first = card.firstElementChild;
+        const second = first ? first.nextElementSibling : null;
+        const img = first ? first.querySelector('img') || first.querySelector('picture img') || card.querySelector('img') : card.querySelector('img');
+
+        // If the card has horizontal padding, move it to the content (second child) to free the image to span full width
+        if ((padL>0 || padR>0) && second){
+          // Remove horizontal padding from the card
+          card.style.paddingLeft = '0px';
+          card.style.paddingRight = '0px';
+          // Keep top padding as-is
+          if (padT>0) card.style.paddingTop = padT+'px';
+
+          // Apply the same padding to the content block
+          const scs = getComputedStyle(second);
+          const existingPL = parseFloat(scs.paddingLeft||'0');
+          const existingPR = parseFloat(scs.paddingRight||'0');
+          second.style.paddingLeft  = (existingPL + padL) + 'px';
+          second.style.paddingRight = (existingPR + padR) + 'px';
+        }
+
+        // Prepare the first wrapper (image container) to bleed
+        if (first){
+          first.style.marginTop = '0';
+          first.style.padding = '0';
+          first.style.borderTopLeftRadius = '12px';
+          first.style.borderTopRightRadius = '12px';
+          first.style.overflow = 'hidden';
+          first.style.width = '100%';
+        }
+
+        if (img){
+          img.style.display = 'block';
+          img.style.margin = '0';
+          img.style.padding = '0';
+          img.style.width = '100%';
+          img.style.height = '205px';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'center top';
+          img.style.borderTopLeftRadius = '12px';
+          img.style.borderTopRightRadius = '12px';
+        }
+      });
+    });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages_v2(); setTimeout(__fixCharacterGridImages_v2, 400); });
+window.addEventListener('resize', ()=>{ __fixCharacterGridImages_v2(); });
+
+__fixCharacterGridImages, 400); });
+window.addEventListener('resize', ()=>{ 
+// === Enhanced: also shift card horizontal padding to the content so image can bleed edge-to-edge
+function __fixCharacterGridImages_v2(){
+  try{
+    const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
+    grids.forEach(grid=>{
+      const cards = grid.querySelectorAll('[class*="card"], .character-card, .card');
+      cards.forEach(card=>{
+        if (card.__edgeFixedV2) return;
+        card.__edgeFixedV2 = true;
+
+        // Ensure rounding/overflow on the card
+        card.style.overflow = 'hidden';
+        if (!card.style.borderRadius) card.style.borderRadius = '12px';
+
+        // Read current horizontal padding on the card
+        const cs = getComputedStyle(card);
+        const padL = parseFloat(cs.paddingLeft||'0');
+        const padR = parseFloat(cs.paddingRight||'0');
+        const padT = parseFloat(cs.paddingTop||'0');
+
+        const first = card.firstElementChild;
+        const second = first ? first.nextElementSibling : null;
+        const img = first ? first.querySelector('img') || first.querySelector('picture img') || card.querySelector('img') : card.querySelector('img');
+
+        // If the card has horizontal padding, move it to the content (second child) to free the image to span full width
+        if ((padL>0 || padR>0) && second){
+          // Remove horizontal padding from the card
+          card.style.paddingLeft = '0px';
+          card.style.paddingRight = '0px';
+          // Keep top padding as-is
+          if (padT>0) card.style.paddingTop = padT+'px';
+
+          // Apply the same padding to the content block
+          const scs = getComputedStyle(second);
+          const existingPL = parseFloat(scs.paddingLeft||'0');
+          const existingPR = parseFloat(scs.paddingRight||'0');
+          second.style.paddingLeft  = (existingPL + padL) + 'px';
+          second.style.paddingRight = (existingPR + padR) + 'px';
+        }
+
+        // Prepare the first wrapper (image container) to bleed
+        if (first){
+          first.style.marginTop = '0';
+          first.style.padding = '0';
+          first.style.borderTopLeftRadius = '12px';
+          first.style.borderTopRightRadius = '12px';
+          first.style.overflow = 'hidden';
+          first.style.width = '100%';
+        }
+
+        if (img){
+          img.style.display = 'block';
+          img.style.margin = '0';
+          img.style.padding = '0';
+          img.style.width = '100%';
+          img.style.height = '205px';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'center top';
+          img.style.borderTopLeftRadius = '12px';
+          img.style.borderTopRightRadius = '12px';
+        }
+      });
+    });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages_v2(); setTimeout(__fixCharacterGridImages_v2, 400); });
+window.addEventListener('resize', ()=>{ __fixCharacterGridImages_v2(); });
+
+__fixCharacterGridImages(); });
+
+
+// === Runtime fix v3: remove TOP padding/gap and push it into content, ensure exact edge contact
+function __fixCharacterGridImages_v3(){
+  try{
+    const grids = document.querySelectorAll('.characters-grid, [class*="characters-grid"]');
+    grids.forEach(grid=>{
+      const cards = grid.querySelectorAll('[class*="card"], .character-card, .card');
+      cards.forEach(card=>{
+        if (card.__edgeFixedV3) return;
+        card.__edgeFixedV3 = true;
+
+        // Ensure no internal vertical spacing/gap at the top
+        card.style.overflow = 'hidden';
+        card.style.borderRadius = card.style.borderRadius || '12px';
+        card.style.rowGap = '0px';
+        card.style.gap = '0px';
+
+        const cs = getComputedStyle(card);
+        const padL = parseFloat(cs.paddingLeft||'0');
+        const padR = parseFloat(cs.paddingRight||'0');
+        const padT = parseFloat(cs.paddingTop||'0');
+
+        const first = card.firstElementChild;
+        const second = first ? first.nextElementSibling : null;
+        const img = card.querySelector('img');
+
+        // 1) Kill ALL card padding (L/R/T) so the top area can touch exactly
+        card.style.paddingLeft  = '0px';
+        card.style.paddingRight = '0px';
+        card.style.paddingTop   = '0px';
+
+        // 2) Give the removed padding to the content (2nd child)
+        if (second){
+          const scs = getComputedStyle(second);
+          second.style.paddingLeft  = (parseFloat(scs.paddingLeft||'0')  + padL) + 'px';
+          second.style.paddingRight = (parseFloat(scs.paddingRight||'0') + padR) + 'px';
+          second.style.paddingTop   = (parseFloat(scs.paddingTop||'0')   + padT) + 'px';
+          second.style.marginTop = second.style.marginTop || '0px';
+        }
+
+        // 3) Make first block (image wrapper) bleed full width and stick to top with rounded corners
+        if (first){
+          first.style.margin = '0';
+          first.style.padding = '0';
+          first.style.borderTopLeftRadius = '12px';
+          first.style.borderTopRightRadius = '12px';
+          first.style.overflow = 'hidden';
+          first.style.width = '100%';
+          first.style.transform = 'translateZ(0)'; // avoid hairline
+        }
+
+        // 4) Image styles
+        if (img){
+          img.style.display = 'block';
+          img.style.margin = '0';
+          img.style.padding = '0';
+          img.style.width = '100%';
+          img.style.height = '205px';
+          img.style.objectFit = 'cover';
+          img.style.objectPosition = 'center top';
+          img.style.borderTopLeftRadius = '12px';
+          img.style.borderTopRightRadius = '12px';
+        }
+      });
+    });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', ()=>{ __fixCharacterGridImages_v3(); setTimeout(__fixCharacterGridImages_v3, 450); });
+window.addEventListener('resize', ()=>{ __fixCharacterGridImages_v3(); });
 
 document.addEventListener("DOMContentLoaded", function() {
     const mobileMenuHTML = `
