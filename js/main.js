@@ -388,13 +388,13 @@ function createHistoricalEventCard(event) {
             <!-- Impact -->
             <div class="mb-4">
                 <h4 class="text-sm font-semibold text-blue-600 mb-2">Impact :</h4>
-                <p class="text-sm text-blue-700 italic">${event.impact}</p>
+                <p class="text-sm text-gray-600 italic">${event.impact}</p>
             </div>
             
             <!-- Conséquences -->
             <div class="mb-4">
                 <h4 class="text-sm font-semibold text-green-600 mb-2">Conséquences :</h4>
-                <ul class="text-sm text-green-700">
+                <ul class="consequences-list">
                     ${event.consequences.map(consequence => `<li>• ${consequence}</li>`).join('')}
                 </ul>
             </div>
