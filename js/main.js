@@ -309,6 +309,14 @@ function closeMobileMenu() {
 
 // ===== ÉVÉNEMENTS =====
 function initializeEventListeners() {
+    // Délégation de clic pour les personnages des fiches historiques
+    document.addEventListener('click', (e) => {
+        const chip = e.target.closest('.clickable-person');
+        if (chip) {
+            const name = chip.getAttribute('data-name');
+            if (name) openHistoricalCharacterModal(name);
+        }
+    });
     // Bouton retour en haut
     const backToTopButton = document.getElementById('back-to-top');
     
@@ -404,7 +412,7 @@ function createHistoricalEventCard(event) {
                 <h4 class="text-sm font-semibold text-amber-600 mb-2">Personnages clés :</h4>
                 <div class="flex flex-wrap gap-1">
                     ${event.keyPersons.map(person => `
-                        <span class="person-chip clickable-person" onclick='openHistoricalCharacterModal('+JSON.stringify(person)+')'>
+                        <span class="person-chip clickable-person" data-name="${person}">
                             ${person}
                         </span>
                     `).join('')}
