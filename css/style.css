@@ -846,20 +846,10 @@ POUR MODIFIER LES CARTES :
 .title-fa{margin:0 10px;}
 
 
-/* === Title icon tuning (final mixed styles) === */
-.title-fa{ display:inline-block; vertical-align:middle; margin:0 0.35em; line-height:1; }
-
-/* Crown (Regular): baseline OK */
-.title-fa--crown{ font-size:1em; }
-
-/* Users (Solid): reduce & lift a bit to align, avoids clipping of 'g' */
-.title-fa--users{ font-size:0.86em; transform:translateY(0.04em); }
-
-/* Scroll (Solid): slightly smaller & lifted for balance */
-.title-fa--scroll{ font-size:0.88em; transform:translateY(0.03em); }
-
-/* Map (Regular): slight reduction */
-.title-fa--map{ font-size:0.94em; transform:translateY(0.02em); }
-
-/* Prevent any descenders clipping near icons */
-section h2{ line-height:1.2; overflow:visible; }
+/* === Title icon tuning (mixed Regular/Solid) === */
+.title-fa{display:inline-block;vertical-align:middle;margin:0 0.35em;line-height:1;}
+.title-fa--crown{font-size:1em;}
+.title-fa--users{font-size:0.86em;transform:translateY(0.04em);}
+.title-fa--scroll{font-size:0.88em;transform:translateY(0.03em);}
+.title-fa--map{font-size:0.94em;transform:translateY(0.02em);}
+section h2{line-height:1.2;overflow:visible;}
