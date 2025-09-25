@@ -840,3 +840,7 @@ POUR MODIFIER LES CARTES :
     font-weight: 600;
     display: inline-block;
 }
+
+
+/* Font Awesome light icons around titles */
+.title-fa{margin:0 10px;}
