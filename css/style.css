@@ -632,3 +632,214 @@ POUR MODIFIER LES CARTES :
 
 .historical-event-card p{color:#374151;}
 .historical-event-card em, .historical-event-card .impact-text{color:#334155;}
+
+
+/* ===== MODAL PERSONNAGES HISTORIQUES ===== */
+.historical-character-modal-content {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #d4af37;
+    max-width: 700px;
+}
+
+.historical-character-header {
+    background: linear-gradient(135deg, #d4af37, #f59e0b);
+    color: white;
+    padding: 24px;
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    position: relative;
+}
+
+.historical-character-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.historical-character-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.historical-character-title {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 0 0 8px 0;
+}
+
+.historical-character-period {
+    font-size: 1rem;
+    opacity: 0.8;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+.historical-character-body {
+    padding: 24px;
+}
+
+.historical-character-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 24px;
+    text-align: justify;
+}
+
+.historical-character-section {
+    margin-bottom: 20px;
+}
+
+.historical-character-section h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #d4af37;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.historical-character-section h4::before {
+    content: "✨";
+    font-size: 1rem;
+}
+
+.historical-facts-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.historical-facts-list li {
+    background: rgba(212, 175, 55, 0.1);
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid #d4af37;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.historical-facts-list li::before {
+    content: "👑";
+    margin-right: 8px;
+}
+
+.historical-role {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    font-style: italic;
+    text-align: center;
+    margin: 16px 0;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.historical-legacy {
+    background: rgba(34, 197, 94, 0.1);
+    border: 2px solid #22c55e;
+    padding: 16px;
+    border-radius: 12px;
+    color: #166534;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Animation d'apparition pour la modale historique */
+.historical-character-modal-content {
+    animation: historicalSlideIn 0.4s ease-out;
+}
+
+@keyframes historicalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive pour les modales historiques */
+@media (max-width: 768px) {
+    .historical-character-modal-content {
+        margin: 10% auto;
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .historical-character-header {
+        padding: 20px 16px;
+    }
+    
+    .historical-character-name {
+        font-size: 1.6rem;
+    }
+    
+    .historical-character-body {
+        padding: 20px 16px;
+    }
+}
+
+/* ===== STYLES POUR LES PERSONNAGES CLIQUABLES ===== */
+.clickable-person {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clickable-person:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.person-chip {
+    background: #f59e0b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* ===== LISTES SANS PUCES NOIRES ===== */
+.consequences-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.consequences-list li {
+    color: #059669;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+    padding-left: 16px;
+    position: relative;
+}
+
+.consequences-list li::before {
+    content: "✓";
+    color: #059669;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* ===== STYLES POUR LES PÉRIODES ===== */
+.period-pill {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+}

@@ -395,7 +395,7 @@ function createHistoricalEventCard(event) {
             <div class="mb-4">
                 <h4 class="text-sm font-semibold text-green-600 mb-2">Conséquences :</h4>
                 <ul class="consequences-list">
-                    ${event.consequences.map(consequence => `<li>• ${consequence}</li>`).join('')}
+                    ${event.consequences.map(consequence => `<li>${consequence}</li>`).join('')}
                 </ul>
             </div>
             
@@ -404,7 +404,7 @@ function createHistoricalEventCard(event) {
                 <h4 class="text-sm font-semibold text-amber-600 mb-2">Personnages clés :</h4>
                 <div class="flex flex-wrap gap-1">
                     ${event.keyPersons.map(person => `
-                        <span class="person-chip">
+                        <span class="person-chip clickable-person" onclick="openHistoricalCharacterModal('${person}')">
                             ${person}
                         </span>
                     `).join('')}
@@ -494,3 +494,82 @@ function displayFilteredCharacters(filteredCharacters) {
         });
     }, 100);
 }
+
+
+// ===== MODALES PERSONNAGES HISTORIQUES =====
+function openHistoricalCharacterModal(characterName) {
+    const character = getHistoricalCharacterByName(characterName);
+    if (!character) {
+        console.warn(`Personnage historique non trouvé: ${characterName}`);
+        return;
+    }
+    
+    const modal = document.getElementById('historical-character-modal');
+    const content = document.getElementById('historical-character-content');
+    
+    content.innerHTML = `
+        <div class="historical-character-header" style="background: linear-gradient(135deg, ${character.color}, ${adjustColor(character.color, -20)});">
+            <span class="historical-character-emoji">${character.emoji}</span>
+            <h2 class="historical-character-name">${character.name}</h2>
+            <p class="historical-character-title">${character.title}</p>
+            <span class="historical-character-period">${character.period}</span>
+        </div>
+        
+        <div class="historical-character-body">
+            <p class="historical-character-description">${character.description}</p>
+            
+            <div class="historical-character-section">
+                <h4>Faits Marquants</h4>
+                <ul class="historical-facts-list">
+                    ${character.keyFacts.map(fact => `<li>${fact}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <div class="historical-role">
+                <strong>Rôle Historique :</strong> ${character.historicalRole}
+            </div>
+            
+            <div class="historical-legacy">
+                <strong>Héritage :</strong> ${character.legacy}
+            </div>
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeHistoricalCharacterModal() {
+    const modal = document.getElementById('historical-character-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Fonction utilitaire pour ajuster la couleur
+function adjustColor(color, amount) {
+    const usePound = color[0] === '#';
+    const col = usePound ? color.slice(1) : color;
+    const num = parseInt(col, 16);
+    let r = (num >> 16) + amount;
+    let g = (num >> 8 & 0x00FF) + amount;
+    let b = (num & 0x0000FF) + amount;
+    r = r > 255 ? 255 : r < 0 ? 0 : r;
+    g = g > 255 ? 255 : g < 0 ? 0 : g;
+    b = b > 255 ? 255 : b < 0 ? 0 : b;
+    return (usePound ? '#' : '') + (r << 16 | g << 8 | b).toString(16).padStart(6, '0');
+}
+
+// Fermer la modale historique en cliquant à l'extérieur
+window.addEventListener('click', (event) => {
+    const modal = document.getElementById('historical-character-modal');
+    if (event.target === modal) {
+        closeHistoricalCharacterModal();
+    }
+});
+
+// Fermer la modale historique avec Échap
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeHistoricalCharacterModal();
+    }
+});
