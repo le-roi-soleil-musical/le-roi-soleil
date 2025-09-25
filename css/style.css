@@ -459,3 +459,44 @@ POUR MODIFIER LES CARTES :
 4. Couleurs : modifier les variables :root
 5. Animations : modifier les @keyframes
 */
+
+
+/* ===== ÉVÉNEMENTS HISTORIQUES ===== */
+.historical-event-card {
+    height: 420px; /* Hauteur fixe comme les cartes de personnages */
+    display: flex;
+    flex-direction: column;
+}
+
+.historical-event-card .p-6 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.historical-event-card h3 {
+    flex-shrink: 0;
+}
+
+.historical-event-card p {
+    flex-grow: 1;
+}
+
+/* Animation au hover pour les événements historiques */
+.historical-event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles spécifiques pour les badges d'importance */
+.historical-event-card .bg-red-500 {
+    background-color: #ef4444 !important;
+}
+
+.historical-event-card .bg-amber-500 {
+    background-color: #f59e0b !important;
+}
+
+.historical-event-card .bg-blue-500 {
+    background-color: #3b82f6 !important;
+}

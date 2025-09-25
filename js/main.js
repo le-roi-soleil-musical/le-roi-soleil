@@ -17,6 +17,9 @@ function initializeApp() {
     // Générer les cartes de personnages
     generateCharacterCards();
     
+    // Générer les événements historiques
+    generateHistoricalEvents();
+    
     // Terminer le chargement après 3 secondes
     setTimeout(() => {
         finishLoading();
@@ -342,6 +345,88 @@ function initializeEventListeners() {
             closeMobileMenu();
         }
     });
+}
+
+// ===== GÉNÉRATION DES ÉVÉNEMENTS HISTORIQUES =====
+function generateHistoricalEvents() {
+    const grid = document.getElementById('historical-events-grid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    historicalEvents.forEach(event => {
+        const card = createHistoricalEventCard(event);
+        grid.appendChild(card);
+    });
+}
+
+function createHistoricalEventCard(event) {
+    const card = document.createElement('div');
+    card.className = 'historical-event-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden';
+    
+    // Couleur selon l'importance
+    const importanceColors = {
+        'Majeure': 'bg-red-500',
+        'Légendaire': 'bg-amber-500'
+    };
+    
+    const importanceColor = importanceColors[event.importance] || 'bg-blue-500';
+    
+    card.innerHTML = `
+        <div class="p-6">
+            <!-- Header avec période et emoji -->
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-3xl">${event.emoji}</span>
+                <div class="text-right">
+                    <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        ${event.period}
+                    </span>
+                    <p class="text-sm text-gray-500 mt-1">${event.category}</p>
+                </div>
+            </div>
+            
+            <!-- Titre -->
+            <h3 class="text-xl font-bold text-gray-800 mb-3">${event.title}</h3>
+            
+            <!-- Description -->
+            <p class="text-gray-600 mb-4 text-sm leading-relaxed">${event.description}</p>
+            
+            <!-- Impact -->
+            <div class="mb-4">
+                <h4 class="text-sm font-semibold text-blue-600 mb-2">Impact :</h4>
+                <p class="text-sm text-blue-700 italic">${event.impact}</p>
+            </div>
+            
+            <!-- Conséquences -->
+            <div class="mb-4">
+                <h4 class="text-sm font-semibold text-green-600 mb-2">Conséquences :</h4>
+                <ul class="text-sm text-green-700">
+                    ${event.consequences.map(consequence => `<li>• ${consequence}</li>`).join('')}
+                </ul>
+            </div>
+            
+            <!-- Personnages clés -->
+            <div class="mb-4">
+                <h4 class="text-sm font-semibold text-amber-600 mb-2">Personnages clés :</h4>
+                <div class="flex flex-wrap gap-1">
+                    ${event.keyPersons.map(person => `
+                        <span class="bg-amber-100 text-amber-800 px-2 py-1 rounded text-xs font-medium">
+                            ${person}
+                        </span>
+                    `).join('')}
+                </div>
+            </div>
+            
+            <!-- Badge d'importance -->
+            <div class="flex justify-end">
+                <span class="${importanceColor} text-white px-3 py-1 rounded-full text-xs font-bold">
+                    ${event.importance}
+                </span>
+            </div>
+        </div>
+    `;
+    
+    return card;
 }
 
 // ===== UTILITAIRES =====
