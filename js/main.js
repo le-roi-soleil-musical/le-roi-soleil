@@ -404,7 +404,7 @@ function createHistoricalEventCard(event) {
                 <h4 class="text-sm font-semibold text-amber-600 mb-2">Personnages clés :</h4>
                 <div class="flex flex-wrap gap-1">
                     ${event.keyPersons.map(person => `
-                        <span class="person-chip clickable-person" onclick="openHistoricalCharacterModal('${person}')">
+                        <span class="person-chip clickable-person" onclick='openHistoricalCharacterModal('+JSON.stringify(person)+')'>
                             ${person}
                         </span>
                     `).join('')}

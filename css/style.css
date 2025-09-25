@@ -482,11 +482,8 @@ POUR MODIFIER LES CARTES :
 
 
 /* ===== ÉVÉNEMENTS HISTORIQUES ===== */
-.historical-event-card {
-    height: 420px; /* Hauteur fixe comme les cartes de personnages */
-    display: flex;
-    flex-direction: column;
-}
+.historical-event-card{display:flex;flex-direction:column;}
+@media(min-width:1024px){.historical-event-card{min-height:420px;}}
 
 .historical-event-card .p-6 {
     flex: 1;
