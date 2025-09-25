@@ -364,13 +364,7 @@ function createHistoricalEventCard(event) {
     const card = document.createElement('div');
     card.className = 'historical-event-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden';
     
-    // Couleur selon l'importance
-    const importanceColors = {
-        'Majeure': 'bg-red-500',
-        'Légendaire': 'bg-amber-500'
-    };
-    
-    const importanceColor = importanceColors[event.importance] || 'bg-blue-500';
+
     
     card.innerHTML = `
         <div class="p-6">
@@ -417,12 +411,7 @@ function createHistoricalEventCard(event) {
                 </div>
             </div>
             
-            <!-- Badge d'importance -->
-            <div class="flex justify-end">
-                <span class="${importanceColor} text-white px-3 py-1 rounded-full text-xs font-bold">
-                    ${event.importance}
-                </span>
-            </div>
+
         </div>
     `;
     
