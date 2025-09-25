@@ -1,12 +1,245 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Le Roi Soleil</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Le Roi Soleil — Version statique modifiable</title>
+  <!-- Tailwind via CDN (aucune installation) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Palette & variables proches du site actuel */
+    :root{
+      --brand-amber:#ff8a00;
+      --brand-pink:#ff4d88;
+      --brand-deep:#c2410c;
+      --card-radius:12px;
+      --chip-radius:9999px;
+    }
+    /* Fond général en dégradé doux */
+    body{
+      background:
+        radial-gradient(1200px 600px at 50% -100px, rgba(255,210,200,.55), transparent 70%),
+        radial-gradient(1000px 500px at 90% 30%, rgba(255,170,60,.35), transparent 70%),
+        linear-gradient(180deg, #fff6f2 0%, #fef2f2 60%, #fdf4e6 100%);
+    }
+    /* Navbar flottante */
+    .navbar{ backdrop-filter: blur(8px); }
+    /* Cartes génériques */
+    .card{ background:#fff; border-radius:var(--card-radius); box-shadow:0 10px 30px rgba(10,10,30,.08); }
+    .card-soft{ background:#ffffffcc; border-radius:var(--card-radius); box-shadow:0 8px 24px rgba(10,10,30,.06); }
+    /* Cartes Personnages : image bord à bord + arrondis en haut */
+    .character-card{ border-radius:var(--card-radius); overflow:hidden; background:#fff; }
+    .character-card .imgwrap{ line-height:0; overflow:hidden; border-radius:var(--card-radius) var(--card-radius) 0 0; }
+    .character-card img{ display:block; width:100%; height:205px; object-fit:cover; object-position:center top; border-radius:var(--card-radius) var(--card-radius) 0 0; }
+    @media (max-width:768px){ .character-card img{ height:185px; } }
+    /* Badge en surimpression */
+    .type-badge{ position:absolute; top:12px; left:12px; padding:4px 10px; border-radius:var(--chip-radius); font-weight:600; font-size:.9rem; background:rgba(255,255,255,.85); backdrop-filter: blur(6px); border:1px solid rgba(0,0,0,.06); }
+    .type-badge[data-type="Dame de cour"]{ background:#fff; color:#000; border:none; box-shadow:0 0 0 1px rgba(0,0,0,.05); }
+    /* Bouton primaire */
+    .btn{ display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border-radius:10px; border:1px solid rgba(0,0,0,.08); transition:.2s; }
+    .btn:hover{ background:#fafafa; }
+    .btn-primary{ background:linear-gradient(180deg, var(--brand-amber), var(--brand-deep)); color:#fff; border:none; }
+    .btn-outline{ background:#fff; color:#111; }
+    /* Modal */
+    .backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:50; padding:1rem; }
+    .backdrop.active{ display:flex; }
+    .modal{ width:min(760px, 100%); border-radius:16px; overflow:hidden; background:#fff; }
+    .modal .header img{ width:100%; height:360px; object-fit:cover; object-position:center top; display:block; }
+    /* Petits points décoratifs (optionnel) */
+    .dot{ position:absolute; width:6px; height:6px; border-radius:50%; background:rgba(255,180,0,.35); }
+  </style>
+</head>
+<body class="text-stone-900 selection:bg-amber-200/40">
+  <!-- NAVBAR -->
+  <nav class="navbar sticky top-0 z-40 bg-white/80 border-b border-amber-200/60">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div class="font-bold tracking-tight flex items-center gap-2"><span>👑</span> <span>Le Roi Soleil</span></div>
+      <div class="hidden sm:flex items-center gap-6 text-sm">
+        <a href="#histoire" class="hover:text-amber-600">Histoire</a>
+        <a href="#personnages" class="hover:text-amber-600">Personnages</a>
+        <a href="#dates" class="hover:text-amber-600">Dates</a>
+      </div>
+      <button class="sm:hidden w-9 h-9 rounded-full bg-amber-700 text-white" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+  <!-- Drawer mobile -->
+  <aside id="drawer" class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl p-4 z-50 translate-x-full transition">
+    <div class="flex items-center justify-between mb-4">
+      <strong>Menu</strong>
+      <button class="px-2 py-1 border rounded" onclick="toggleMenu()">Fermer ✕</button>
+    </div>
+    <nav class="flex flex-col gap-2">
+      <a href="#histoire" class="btn" onclick="toggleMenu()">Histoire</a>
+      <a href="#personnages" class="btn" onclick="toggleMenu()">Personnages</a>
+      <a href="#dates" class="btn" onclick="toggleMenu()">Dates</a>
+    </nav>
+  </aside>
+
+  <!-- HERO -->
+  <header class="relative overflow-hidden">
+    <div class="max-w-5xl mx-auto text-center py-16 px-4 sm:px-6 lg:px-8">
+      <h1 class="text-5xl sm:text-6xl font-extrabold text-transparent bg-clip-text" style="background-image:linear-gradient(180deg, var(--brand-amber), var(--brand-pink));">Le Roi Soleil</h1>
+      <p class="mt-3 text-stone-700">Comédie Musicale du Lycée Condorcet</p>
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="card p-6 text-stone-700">🎭 <strong>Spectacle musical</strong><br><span class="text-sm text-stone-500">Une fresque époustouflante</span></div>
+        <div class="card p-6 text-stone-700">🎟️ <strong>Entrée gratuite</strong><br><span class="text-sm text-stone-500">Accessible à tous</span></div>
+        <div class="card p-6 text-stone-700">📅 <strong>Mars 2026</strong><br><span class="text-sm text-stone-500">3 représentations</span></div>
+      </div>
+      <div class="mt-6 flex gap-2 justify-center">
+        <a href="#dates" class="btn btn-primary">Voir les Dates</a>
+        <a href="#personnages" class="btn btn-outline">Découvrir les Personnages</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <!-- HISTOIRE -->
+    <section id="histoire" class="space-y-8">
+      <h2 class="text-3xl font-bold">L'Histoire du Roi Soleil</h2>
+      <p class="text-stone-600">Découvrez l'intrigue passionnante de cette comédie musicale légendaire</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <div class="text-3xl">👑</div>
+          <h3 class="mt-3 font-semibold">Un Jeune Roi en Devenir</h3>
+          <p class="text-sm text-stone-600 mt-2">Le spectacle s'ouvre sur le jeune Louis XIV…</p>
+        </div>
+        <div class="card p-6">
+          <div class="text-3xl">💘</div>
+          <h3 class="mt-3 font-semibold">L'Amour Interdit</h3>
+          <p class="text-sm text-stone-600 mt-2">Au coeur de l'intrigue, la passion déchirante…</p>
+        </div>
+        <div class="card p-6">
+          <div class="text-3xl">🎭</div>
+          <h3 class="mt-3 font-semibold">Intrigues de Cour</h3>
+          <p class="text-sm text-stone-600 mt-2">Entre complots, jalousies et alliances…</p>
+        </div>
+        <div class="card p-6">
+          <div class="text-3xl">🎵</div>
+          <h3 class="mt-3 font-semibold">Spectacle Musical Total</h3>
+          <p class="text-sm text-stone-600 mt-2">Chansons, chorégraphies et costumes…</p>
+        </div>
+        <div class="card p-6">
+          <div class="text-3xl">⚔️</div>
+          <h3 class="mt-3 font-semibold">Conflits et Passions</h3>
+          <p class="text-sm text-stone-600 mt-2">Entre guerre et paix, amour et devoir…</p>
+        </div>
+        <div class="card p-6">
+          <div class="text-3xl">⭐</div>
+          <h3 class="mt-3 font-semibold">La Naissance d'une Légende</h3>
+          <p class="text-sm text-stone-600 mt-2">Le spectacle culmine avec la transformation…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONNAGES -->
+    <section id="personnages" class="space-y-8 mt-16">
+      <h2 class="text-3xl font-bold">Les Personnages</h2>
+      <p class="text-stone-600">Découvrez les personnages emblématiques…</p>
+      <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- DATES -->
+    <section id="dates" class="space-y-8 mt-16">
+      <h2 class="text-3xl font-bold">Dates des Représentations</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="card p-6 text-center">
+          <div class="text-xs text-stone-500">Samedi</div>
+          <div class="text-5xl font-extrabold mt-2">14</div>
+          <div class="text-xs text-stone-500 mt-2">18h30</div>
+        </div>
+        <div class="card p-6 text-center">
+          <div class="text-xs text-stone-500">Jeudi</div>
+          <div class="text-5xl font-extrabold mt-2">19</div>
+          <div class="text-xs text-stone-500 mt-2">18h30</div>
+        </div>
+        <div class="card p-6 text-center">
+          <div class="text-xs text-stone-500">Samedi</div>
+          <div class="text-5xl font-extrabold mt-2">21</div>
+          <div class="text-xs text-stone-500 mt-2">18h30</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div id="modal" class="backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="header relative">
+        <img id="mImg" src="" alt="">
+        <div id="mType" class="type-badge" style="left:auto; right:12px" data-type="">—</div>
+      </div>
+      <div class="p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 id="mTitle" class="text-2xl font-bold">Titre</h3>
+          <button class="btn" onclick="closeModal()">Fermer ✕</button>
+        </div>
+        <section class="card-soft p-4">
+          <h4 class="font-semibold">Description</h4>
+          <p id="mDesc" class="text-sm text-stone-700 mt-2">Texte à personnaliser…</p>
+        </section>
+        <section class="card-soft p-4">
+          <h4 class="font-semibold">Statistiques</h4>
+          <div class="grid grid-cols-2 gap-4 mt-2 text-sm">
+            <div>⚡ Pouvoir <div class="h-2 bg-stone-200 rounded"><div id="mPower" class="h-2 bg-orange-500 rounded" style="width:80%"></div></div></div>
+            <div>💖 Charisme <div class="h-2 bg-stone-200 rounded"><div id="mCharisma" class="h-2 bg-pink-500 rounded" style="width:80%"></div></div></div>
+            <div>🧠 Intelligence <div class="h-2 bg-stone-200 rounded"><div id="mIntel" class="h-2 bg-blue-500 rounded" style="width:80%"></div></div></div>
+            <div>💘 Amour <div class="h-2 bg-stone-200 rounded"><div id="mLove" class="h-2 bg-purple-500 rounded" style="width:80%"></div></div></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu(){ document.getElementById('drawer').classList.toggle('translate-x-full'); }
+
+    const DATA = [];
+  </script>
+  <script>
+    // Charger dynamiquement la grille depuis le dossier d'images existant
+    const images = ["assets/images/personnages/anne_autriche.jpg", "assets/images/personnages/colbert.jpg", "assets/images/personnages/courtisane.jpg", "assets/images/personnages/dame_cour.jpg", "assets/images/personnages/danseuse.jpg", "assets/images/personnages/duc_beaufort.jpg", "assets/images/personnages/enfant_roi.jpg", "assets/images/personnages/eveque.jpg", "assets/images/personnages/femme_chambre.jpg", "assets/images/personnages/femme_peuple.jpg", "assets/images/personnages/isabelle.jpg", "assets/images/personnages/la_voisin.jpg", "assets/images/personnages/louis_xiv.jpg", "assets/images/personnages/louis_xivold.jpg", "assets/images/personnages/madame_montespan.jpg", "assets/images/personnages/marie_mancini.jpg", "assets/images/personnages/mazarin.jpg", "assets/images/personnages/medecin.jpg", "assets/images/personnages/mlle_lisieux.jpg", "assets/images/personnages/mme_maintenon.jpg", "assets/images/personnages/moliere.jpg", "assets/images/personnages/ninon_enclos.jpg", "assets/images/personnages/paul_scarron.jpg", "assets/images/personnages/philippe_orleans.jpg", "assets/images/personnages/soldat.jpg"];
+    const grid = document.getElementById('grid');
+    const data = images.map(src=>{
+      const id = src.split('/').pop().replace('.jpg','');
+      const name = id.replace(/_/g,' ').replace(/\b\w/g, m=>m.toUpperCase());
+      const typ = /mancini|marie|madame|maintenon|montespan/.test(id)? 'Dame de cour'
+                 : /courtisane/.test(id)? 'Courtisane'
+                 : /louis|roi/.test(id)? 'Royauté'
+                 : 'Personnage';
+      return {id, name, type: typ, img: src, power:85, charisma:90, intelligence:88, love:80};
+    });
+
+    data.forEach(p=>{
+      const art = document.createElement('article');
+      art.className = 'character-card cursor-pointer hover:shadow-lg transition';
+      art.innerHTML = `
+        <div class="relative imgwrap">
+          <img src="${p.img}" alt="${p.name}">
+          <div class="type-badge" data-type="${p.type}">${p.type==='Dame de cour'?'👒':''} ${p.type}</div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-semibold">${p.name}</h3>
+          <p class="text-sm text-stone-600">Sous-titre…</p>
+        </div>`;
+      art.addEventListener('click', ()=>openModal(p));
+      grid.appendChild(art);
+    });
+
+    function openModal(p){
+      document.getElementById('mImg').src = p.img;
+      document.getElementById('mTitle').textContent = p.name;
+      document.getElementById('mType').textContent = (p.type==='Dame de cour'?'👒 ':'') + p.type;
+      document.getElementById('mType').setAttribute('data-type', p.type);
+      document.getElementById('mDesc').textContent = "Description à personnaliser pour " + p.name;
+      document.getElementById('mPower').style.width = p.power + '%';
+      document.getElementById('mCharisma').style.width = p.charisma + '%';
+      document.getElementById('mIntel').style.width = p.intelligence + '%';
+      document.getElementById('mLove').style.width = p.love + '%';
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow='hidden';
+    }
+    function closeModal(){ document.getElementById('modal').classList.remove('active'); document.body.style.overflow=''; }
+    document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal') closeModal(); });
+  </script>
+</body>
 </html>
