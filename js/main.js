@@ -152,7 +152,7 @@ function openCharacterModal(characterId) {
     modalBody.innerHTML = `
         <div class="relative">
             <!-- Image de fond avec overlay -->
-            <div class="h-64 bg-cover bg-center relative rounded-t-2xl overflow-hidden" 
+            <div class="h-64 bg-cover bg-top relative rounded-t-2xl overflow-hidden" 
                  style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('${character.image}')">
                 
                 <!-- Badge emoji -->
@@ -372,7 +372,7 @@ function createHistoricalEventCard(event) {
             <div class="flex items-center justify-between mb-4">
                 <span class="text-3xl">${event.emoji}</span>
                 <div class="text-right">
-                    <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    <span class="period-pill">
                         ${event.period}
                     </span>
                     <p class="text-sm text-gray-500 mt-1">${event.category}</p>
@@ -404,7 +404,7 @@ function createHistoricalEventCard(event) {
                 <h4 class="text-sm font-semibold text-amber-600 mb-2">Personnages clés :</h4>
                 <div class="flex flex-wrap gap-1">
                     ${event.keyPersons.map(person => `
-                        <span class="bg-amber-100 text-amber-800 px-2 py-1 rounded text-xs font-medium">
+                        <span class="person-chip">
                             ${person}
                         </span>
                     `).join('')}
