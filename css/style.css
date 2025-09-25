@@ -844,12 +844,3 @@ POUR MODIFIER LES CARTES :
 
 /* Font Awesome light icons around titles */
 .title-fa{margin:0 10px;}
-
-
-/* Title icons tuning (verified) */
-.title-fa{display:inline-block;vertical-align:middle;margin:0 0.35em;line-height:1;}
-.title-fa--crown{font-size:1em; transform:none;}
-.title-fa--users{font-size:0.86em;transform:translateY(0.04em);}
-.title-fa--scroll{font-size:0.88em;transform:translateY(0.03em);}
-.title-fa--map{font-size:0.94em;transform:translateY(0.02em);}
-section h2{overflow:visible;}
