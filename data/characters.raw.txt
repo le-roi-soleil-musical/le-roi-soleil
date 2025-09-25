@@ -1,0 +1,57 @@
+[
+    {
+        id: 1,
+        name: "Louis XIV",
+        title: "Le Roi Soleil",
+        description: "Le monarque absolu de France, maître de Versailles et incarnation du pouvoir royal.",
+        image: "images/personnages/louis_xiv.jpg",
+        emoji: "👑",
+        type: "Royauté",
+        typeClass: "royaute",
+        competences: ["Règne Absolu", "Éclat Royal", "Majesté Divine", "Vision d'Empire"],
+        stats: {
+            pouvoir: 95,
+            charisme: 100,
+            intelligence: 90,
+            amour: 85
+        },
+        pouvoirSpecial: {
+            nom: "Éclat du Soleil",
+            description: "Éblouit tous ses adversaires par sa magnificence royale"
+        },
+        citation: "L'État, c'est moi !",
+        faiblesse: "Orgueil"
+    },
+    {
+        id: 2,
+        name: "Marie Mancini",
+        title: "Premier Amour",
+        description: "Nièce de Mazarin, premier grand amour du Roi Soleil. Son charme italien a conquis le cœur royal.",
+        image: "images/personnages/marie_mancini.jpg",
+        emoji: "💕",
+        type: "Courtisane",
+        typeClass: "courtisane",
+        competences: ["Charme Italien", "Poésie Romantique", "Séduction Fatale", "Mélancolie"],
+        stats: {
+            pouvoir: 70,
+            charisme: 95,
+            intelligence: 85,
+            amour: 100
+        },
+        pouvoirSpecial: {
+            nom: "Cœur Brisé",
+            description: "Son amour impossible inspire une mélancolie profonde"
+        },
+        citation: "Je vous aimerai toujours, Sire, mais la raison d'État nous sépare.",
+        faiblesse: "Amour Impossible"
+    },
+    {
+        id: 3,
+        name: "Madame de Montespan",
+        title: "La Sultane",
+        description: "Maîtresse sulfureuse du roi, elle règne sur Versailles par sa beauté et son esprit.",
+        image: "images/personnages/madame_montespan.jpg",
+        emoji: "🌹",
+        type: "Dame de cour",
+        typeClass: "dame-de-cour",
+        competences: ["Séduction fatale"
