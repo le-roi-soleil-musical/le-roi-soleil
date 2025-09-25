@@ -4,12 +4,6 @@ let isLoading = true;
 
 // ===== INITIALISATION =====
 document.addEventListener('DOMContentLoaded', function() {
-    // Reveal on scroll (no lib)
-    const io = new IntersectionObserver(es => es.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('is-visible');
-    }), {threshold:.15});
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    
     initializeApp();
 });
 
@@ -19,12 +13,6 @@ function initializeApp() {
     
     // Initialiser les événements
     initializeEventListeners();
-    buildHistoricalFilters();
-    const btnFS = document.getElementById('btn-timeline-fullscreen');
-    if(btnFS) btnFS.addEventListener('click', openTimelineOverlay);
-    const btnClose = document.getElementById('btn-timeline-close');
-    if(btnClose) btnClose.addEventListener('click', closeTimelineOverlay);
-    
     
     // Générer les cartes de personnages
     generateCharacterCards();
@@ -92,7 +80,7 @@ function generateCharacterCards() {
 
 function createCharacterCard(character) {
     const card = document.createElement('div');
-    card.className = 'character-card tilt-lg reveal';
+    card.className = 'character-card';
     card.onclick = () => openCharacterModal(character.id);
     
     // Générer les badges de compétences (limité à 2 pour l'affichage)
@@ -321,14 +309,6 @@ function closeMobileMenu() {
 
 // ===== ÉVÉNEMENTS =====
 function initializeEventListeners() {
-    // Délégation de clic pour les personnages des fiches historiques
-    document.addEventListener('click', (e) => {
-        const chip = e.target.closest('.clickable-person');
-        if (chip) {
-            const name = chip.getAttribute('data-name');
-            if (name) openHistoricalCharacterModal(name);
-        }
-    });
     // Bouton retour en haut
     const backToTopButton = document.getElementById('back-to-top');
     
@@ -382,7 +362,7 @@ function generateHistoricalEvents() {
 
 function createHistoricalEventCard(event) {
     const card = document.createElement('div');
-    card.className = 'historical-event-card tilt-lg reveal bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden';
+    card.className = 'historical-event-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden';
     
 
     
@@ -424,7 +404,7 @@ function createHistoricalEventCard(event) {
                 <h4 class="text-sm font-semibold text-amber-600 mb-2">Personnages clés :</h4>
                 <div class="flex flex-wrap gap-1">
                     ${event.keyPersons.map(person => `
-                        <span class="person-chip clickable-person" data-name="${person}">
+                        <span class="person-chip clickable-person" onclick='openHistoricalCharacterModal('+JSON.stringify(person)+')'>
                             ${person}
                         </span>
                     `).join('')}
@@ -593,65 +573,3 @@ document.addEventListener('keydown', (event) => {
         closeHistoricalCharacterModal();
     }
 });
-
-
-// ===== Frise chronologique : filtres & plein écran =====
-let currentEventFilter = null;
-
-function uniqueEventCategories(){
-    const cats = new Set(historicalEvents.map(e => e.category));
-    return Array.from(cats);
-}
-
-function buildHistoricalFilters(prefix = ''){
-    const container = document.getElementById(prefix + 'historical-filters') || document.getElementById(prefix + 'timeline-overlay-filters');
-    if(!container) return;
-    const cats = ['Tous', ...uniqueEventCategories()];
-    container.innerHTML = cats.map(cat => 
-        `<button data-cat="${cat}" class="px-3 py-1 rounded-full border border-indigo-200 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 transition ${currentEventFilter===cat?'ring-2 ring-indigo-400':''}">${cat}</button>`
-    ).join('');
-    container.querySelectorAll('button').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-            currentEventFilter = btn.dataset.cat === 'Tous' ? null : btn.dataset.cat;
-            generateHistoricalEvents();
-            buildHistoricalFilters('timeline-overlay-');
-            if(document.getElementById('timeline-overlay') && !document.getElementById('timeline-overlay').classList.contains('hidden')){
-                renderTimelineOverlay();
-            }
-        });
-    });
-}
-
-// Override generateHistoricalEvents to support filtering
-const _generateHistoricalEvents = generateHistoricalEvents;
-generateHistoricalEvents = function(){
-    const grid = document.getElementById('historical-events-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const events = currentEventFilter ? historicalEvents.filter(e => e.category === currentEventFilter) : historicalEvents;
-    events.forEach(event => {
-        const card = createHistoricalEventCard(event);
-        grid.appendChild(card);
-    });
-}
-
-// Fullscreen overlay
-function openTimelineOverlay(){
-    const ov = document.getElementById('timeline-overlay');
-    if(!ov) return;
-    ov.classList.remove('hidden');
-    renderTimelineOverlay();
-    window.scrollTo({top:0, behavior:'smooth'});
-}
-function closeTimelineOverlay(){
-    const ov = document.getElementById('timeline-overlay');
-    if(!ov) return;
-    ov.classList.add('hidden');
-}
-function renderTimelineOverlay(){
-    const grid = document.getElementById('timeline-overlay-grid');
-    if(!grid) return;
-    grid.innerHTML = '';
-    const events = currentEventFilter ? historicalEvents.filter(e => e.category === currentEventFilter) : historicalEvents;
-    events.forEach(event => grid.appendChild(createHistoricalEventCard(event)));
-}
