@@ -12,8 +12,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
 <!-- CSS personnalisé -->
 <link href="css/style.css" rel="stylesheet"/>
-<!-- Thème royal Versailles -->
-<link href="css/theme-royal.css" rel="stylesheet"/>
 <!-- Configuration Tailwind -->
 <script>
         tailwind.config = {
@@ -28,19 +26,8 @@
         }
     </script>
 <!-- Font Awesome Pro local -->
-<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="True" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Playfair+Display:wght@400;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/><link href="wow-theme.css" rel="stylesheet"/></head>
-<body class="bg-gradient-to-br from-amber-50 via-rose-100 to-orange-100 min-h-screen theme-versailles"><section class="hero-parallax relative overflow-hidden" id="hero">
-<div class="hero-layer hero-bg"></div>
-<div class="hero-layer hero-rays"></div>
-<div class="relative z-10 flex flex-col items-center justify-center text-center min-h-[70vh] px-6">
-<h1 class="hero-title">Le Roi Soleil</h1>
-<p class="hero-subtitle">Comédie musicale du Lycée Condorcet — Mars 2026</p>
-<div class="mt-6 flex flex-col sm:flex-row gap-3">
-<a class="btn-royal" href="#dates">Réserver les dates</a>
-<a class="btn-ghost" href="#personnages">Découvrir les personnages</a>
-</div>
-</div>
-</section>
+</head>
+<body class="bg-gradient-to-br from-amber-50 via-rose-100 to-orange-100 min-h-screen">
 <!-- Écran de chargement -->
 <div class="fixed inset-0 bg-gradient-to-br from-amber-50 via-rose-100 to-orange-100 flex items-center justify-center z-50" id="loading-screen">
 <div class="text-center">
@@ -92,11 +79,11 @@
 <section class="min-h-screen flex items-center justify-center relative overflow-hidden" id="hero">
 <!-- Particules flottantes -->
 <div class="absolute inset-0 overflow-hidden pointer-events-none">
-
-
-
-
-
+<div class="particle particle-1">✨</div>
+<div class="particle particle-2">👑</div>
+<div class="particle particle-3">⭐</div>
+<div class="particle particle-4">💫</div>
+<div class="particle particle-5">🌟</div>
 </div>
 <div class="container mx-auto px-6 text-center relative z-10">
 <h1 class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6 animate__animated animate__fadeInUp">
@@ -138,7 +125,7 @@
 <!-- Section Histoire -->
 <section class="py-20 bg-white/50" id="histoire">
 <div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent leading-[1.15] pb-[0.04em] inline-block">   L'Histoire du Roi Soleil   </span></span></h2>
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent leading-[1.15] pb-[0.04em] inline-block pb-[0.08em]">   L'Histoire du Roi Soleil   </span></span></h2>
 <p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
                     Découvrez l'épopée fascinante de Louis XIV à travers notre comédie musicale originale
                 </p>
@@ -190,7 +177,7 @@
 <!-- Section Personnages -->
 <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50" id="personnages">
 <div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4" id="personnages"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[0.04em] inline-block leading-[1.2] pb-[0.08em]"> Les Personnages  </span></span></h2>
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent pb-[0.04em] inline-block leading-[1.2] pb-[0.08em]"> Les Personnages  </span></span></h2>
 <p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">     Découvrez les personnages emblématiques de cette comédie musicale légendaire     </p>
 <!-- Grille des personnages -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="characters-grid">
@@ -210,7 +197,7 @@
 <!-- Section Faits Historiques -->
 <section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50" id="faits-historiques">
 <div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent leading-[1.15] pb-[0.04em] inline-block"> Faits Historiques  </span></span></h2>
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent leading-[1.15] pb-[0.04em] inline-block pb-[0.08em]"> Faits Historiques  </span></span></h2>
 <p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
                     Les événements majeurs qui ont marqué le règne du Roi Soleil
                 </p>
@@ -222,7 +209,7 @@
 <!-- Section Informations Pratiques -->
 <section class="py-20 bg-white/50" id="dates">
 <div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-[1.15] pb-[0.04em] inline-block"> Informations Pratiques   </span></span></h2>
+<h2 class="text-4xl md:text-5xl font-bold text-center mb-4"><span class="inline-flex gap-3 items-baseline"><span class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-[1.15] pb-[0.04em] inline-block pb-[0.08em]"> Informations Pratiques   </span></span></h2>
 <p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
                     Toutes les informations pour assister au spectacle
                 </p>
@@ -240,18 +227,13 @@
 </div>
 <!-- Dates des représentations -->
 <div class="mb-16">
-<h3 class="text-3xl font-bold text-center mb-8 text-gray-800" id="dates">📅 Dates des Représentations</h3>
+<h3 class="text-3xl font-bold text-center mb-8 text-gray-800">📅 Dates des Représentations</h3>
 <div class="grid md:grid-cols-3 gap-6">
 <div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
 <div class="text-center">
 <div class="text-3xl mb-3">🎭</div>
 <h4 class="text-xl font-bold text-rose-800 mb-2">Samedi 14 Mars 2026</h4>
 <p class="text-lg text-gray-700 font-semibold">18h30</p>
-<div class="mt-4 flex justify-center gap-3">
-<a class="btn-royal small" download="" href="roi-soleil-2026-03-14.ics">Ajouter au calendrier</a>
-<a class="btn-ghost small" href="https://www.google.com/maps?q=Lyc%C3%A9e+Condorcet+Moverly+Road+Sydney" rel="noopener" target="_blank">Itinéraire</a>
-</div>
-
 </div>
 </div>
 <div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -259,11 +241,6 @@
 <div class="text-3xl mb-3">🎭</div>
 <h4 class="text-xl font-bold text-rose-800 mb-2">Jeudi 19 Mars 2026</h4>
 <p class="text-lg text-gray-700 font-semibold">18h30</p>
-<div class="mt-4 flex justify-center gap-3">
-<a class="btn-royal small" download="" href="roi-soleil-2026-03-19.ics">Ajouter au calendrier</a>
-<a class="btn-ghost small" href="https://www.google.com/maps?q=Lyc%C3%A9e+Condorcet+Moverly+Road+Sydney" rel="noopener" target="_blank">Itinéraire</a>
-</div>
-
 </div>
 </div>
 <div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
@@ -271,11 +248,6 @@
 <div class="text-3xl mb-3">🎭</div>
 <h4 class="text-xl font-bold text-rose-800 mb-2">Samedi 21 Mars 2026</h4>
 <p class="text-lg text-gray-700 font-semibold">18h30</p>
-<div class="mt-4 flex justify-center gap-3">
-<a class="btn-royal small" download="" href="roi-soleil-2026-03-21.ics">Ajouter au calendrier</a>
-<a class="btn-ghost small" href="https://www.google.com/maps?q=Lyc%C3%A9e+Condorcet+Moverly+Road+Sydney" rel="noopener" target="_blank">Itinéraire</a>
-</div>
-
 </div>
 </div>
 </div>
@@ -350,8 +322,8 @@
 <span class="text-2xl">👑</span>
 </button>
 <!-- Modal pour les personnages -->
-<div aria-hidden="true" aria-label="Détails du personnage" aria-modal="true" class="modal modal-royal" id="character-modal" role="dialog">
-<div class="modal-content modal-royal">
+<div aria-hidden="true" aria-label="Détails du personnage" aria-modal="true" class="modal" id="character-modal" role="dialog">
+<div class="modal-content">
 <span class="close" onclick="closeModal()">×</span>
 <div id="modal-body">
 <!-- Contenu généré par JavaScript -->
@@ -359,8 +331,8 @@
 </div>
 </div>
 <!-- Modal Personnage Historique -->
-<div aria-hidden="true" aria-label="Personnage historique" aria-modal="true" class="modal modal-royal" id="historical-character-modal" role="dialog">
-<div class="modal-content historical-character-modal-content modal-royal">
+<div aria-hidden="true" aria-label="Personnage historique" aria-modal="true" class="modal" id="historical-character-modal" role="dialog">
+<div class="modal-content historical-character-modal-content">
 <span class="close" onclick="closeHistoricalCharacterModal()">×</span>
 <div id="historical-character-content">
 <!-- Le contenu sera généré dynamiquement -->
@@ -372,17 +344,5 @@
 <script src="js/historical-events.js"></script>
 <script src="js/historical-characters.js"></script>
 <script src="js/main.js"></script><script src="js/accessibility.js"></script>
-<script>
-(function(){
-  const bg = document.querySelector('.hero-bg');
-  const rays = document.querySelector('.hero-rays');
-  function onScroll(){
-    const y = window.scrollY || document.documentElement.scrollTop;
-    if(bg) bg.style.transform = `translateY(${y*0.2}px)`;
-    if(rays) rays.style.transform = `translateY(${y*0.1}px) rotate(${y*0.02}deg)`;
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-})();
-</script></body>
+</body>
 </html>
