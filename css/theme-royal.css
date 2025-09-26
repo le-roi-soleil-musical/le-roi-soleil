@@ -1,0 +1,207 @@
+/* ===== REFONTE VISUELLE VERSAILLES - CONSERVE TOUTE LA STRUCTURE EXISTANTE ===== */
+
+/* Variables pour le thème royal */
+:root {
+    --royal-gold: #C6A664;
+    --royal-deep: #0b0f1a;
+    --royal-ink: #eae6da;
+    --royal-accent: #8b6b2c;
+    --royal-title: 'Cinzel', 'Playfair Display', serif;
+    --royal-text: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Override du body pour le thème royal */
+body.theme-versailles {
+    background: var(--royal-deep) !important;
+    color: var(--royal-ink) !important;
+    font-family: var(--royal-text) !important;
+}
+
+/* Titres avec la font royale */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--royal-title) !important;
+    color: var(--royal-gold) !important;
+}
+
+/* Amélioration des cartes existantes */
+.character-card,
+.historical-event-card,
+.date-card,
+.card-royal {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) !important;
+    border: 1px solid rgba(198, 166, 100, 0.4) !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+.character-card:hover,
+.historical-event-card:hover,
+.date-card:hover,
+.card-royal:hover {
+    border-color: var(--royal-gold) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(198, 166, 100, 0.2) inset !important;
+}
+
+/* Amélioration des boutons existants */
+.btn-royal,
+.btn-ghost {
+    border: 1px solid var(--royal-gold) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.btn-royal {
+    background: var(--royal-gold) !important;
+    color: #1b1b1b !important;
+    box-shadow: 0 6px 20px rgba(198, 166, 100, 0.25) !important;
+}
+
+.btn-royal:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 26px rgba(198, 166, 100, 0.35) !important;
+}
+
+.btn-ghost {
+    background: transparent !important;
+    color: var(--royal-ink) !important;
+}
+
+.btn-ghost:hover {
+    background: rgba(198, 166, 100, 0.1) !important;
+}
+
+/* Amélioration des modales existantes */
+.modal-royal .modal-content,
+.modal .modal-content {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) !important;
+    border: 1px solid rgba(198, 166, 100, 0.5) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6) !important;
+}
+
+.modal-royal .modal-header,
+.modal .modal-header {
+    border-bottom: 1px solid rgba(198, 166, 100, 0.3) !important;
+    font-family: var(--royal-title) !important;
+    color: var(--royal-gold) !important;
+}
+
+.modal-royal .modal-close,
+.modal .close {
+    border: 1px solid rgba(198, 166, 100, 0.4) !important;
+    background: transparent !important;
+    color: var(--royal-ink) !important;
+}
+
+.modal-royal .modal-close:hover,
+.modal .close:hover {
+    background: rgba(198, 166, 100, 0.15) !important;
+}
+
+/* Amélioration des sections */
+.section-title h2,
+.text-4xl,
+.text-5xl {
+    background: linear-gradient(180deg, #fff, var(--royal-gold)) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    color: transparent !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+}
+
+/* Amélioration du texte général */
+.text-gray-600,
+.text-gray-700,
+.text-amber-700,
+.text-purple-300 {
+    color: var(--royal-ink) !important;
+    opacity: 0.9 !important;
+}
+
+/* Amélioration des badges et éléments colorés */
+.character-type-badge,
+.skill-badge,
+.badge {
+    background: rgba(198, 166, 100, 0.2) !important;
+    color: var(--royal-gold) !important;
+    border: 1px solid rgba(198, 166, 100, 0.3) !important;
+}
+
+/* Amélioration du footer */
+footer {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)) !important;
+    border-top: 1px solid rgba(198, 166, 100, 0.3) !important;
+}
+
+/* Amélioration des liens */
+a {
+    color: var(--royal-gold) !important;
+    transition: color 0.3s ease !important;
+}
+
+a:hover {
+    color: var(--royal-accent) !important;
+}
+
+/* Amélioration des barres de stats */
+.stat-fill {
+    background: linear-gradient(90deg, var(--royal-gold), var(--royal-accent)) !important;
+}
+
+/* Amélioration des éléments de navigation */
+.mobile-menu {
+    background: linear-gradient(135deg, var(--royal-gold), var(--royal-accent)) !important;
+}
+
+/* Amélioration des particules et éléments décoratifs */
+.particle {
+    color: var(--royal-gold) !important;
+    opacity: 0.7 !important;
+}
+
+/* Amélioration du bouton retour en haut */
+#back-to-top {
+    background: var(--royal-gold) !important;
+    color: #1b1b1b !important;
+    box-shadow: 0 4px 15px rgba(198, 166, 100, 0.3) !important;
+}
+
+#back-to-top:hover {
+    transform: translateY(-2px) scale(1.1) !important;
+    box-shadow: 0 8px 25px rgba(198, 166, 100, 0.4) !important;
+}
+
+/* Amélioration des gradients de fond */
+.bg-gradient-to-br {
+    background: var(--royal-deep) !important;
+}
+
+.bg-gradient-to-r {
+    background: linear-gradient(90deg, var(--royal-gold), var(--royal-accent)) !important;
+}
+
+/* Amélioration des éléments de chargement */
+#loading-screen {
+    background: var(--royal-deep) !important;
+}
+
+#progress-bar {
+    background: linear-gradient(90deg, var(--royal-gold), var(--royal-accent)) !important;
+}
+
+/* Responsive - conserve tous les breakpoints existants */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem !important;
+    }
+}
+
+/* Animations - améliore les animations existantes */
+@keyframes royal-glow {
+    0% { box-shadow: 0 0 5px var(--royal-gold); }
+    100% { box-shadow: 0 0 20px var(--royal-gold), 0 0 30px var(--royal-gold); }
+}
+
+.animate-glow {
+    animation: royal-glow 2s ease-in-out infinite alternate !important;
+}

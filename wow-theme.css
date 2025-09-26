@@ -115,3 +115,54 @@ h1,h2,h3,h4{ font-family: var(--title); }
 
 /* Utility when Tailwind is present */
 .min-h-\[70vh\]{ min-height:70vh; }
+
+
+/* === Custom fixes === */
+
+/* Hide title SVG icons */
+.section-title svg.title-icon,
+h2 svg.title-icon {
+  display: none !important;
+}
+
+/* Hide floating particles in hero */
+#hero .particle {
+  display: none !important;
+}
+
+/* Improve readability on cards & modal */
+.date-card h3,
+.date-card .time {
+  color: #111 !important;
+  font-weight: 700;
+}
+.date-card .btn {
+  font-weight: 600;
+}
+
+.modal .panel {
+  background: rgba(18,18,24,0.92) !important;
+  color: #fff !important;
+}
+.modal .fact-item {
+  background: rgba(255,255,255,0.08) !important;
+  color: #f6f6f6 !important;
+}
+.modal .badge--role {
+  background: #6b46c1 !important;
+  color: #fff !important;
+}
+.modal .badge--heritage {
+  background: #0f766e !important;
+  color: #fff !important;
+}
+
+/* Hero retina background (if using background-image) */
+#hero {
+  background-image: image-set(
+    url('../images/hero.jpg') 1x,
+    url('../images/hero@2x.jpg') 2x
+  );
+  background-size: cover;
+  background-position: center;
+}
