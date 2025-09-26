@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//RoiSoleil//FR
+BEGIN:VEVENT
+UID:roi-soleil-20260314@lycee-condorcet
+DTSTAMP:20260314T073000Z
+DTSTART:20260314T073000Z
+DTEND:20260314T093000Z
+SUMMARY:Le Roi Soleil — Comédie musicale
+LOCATION:Lycée Condorcet (entrée Moverly Road), Sydney
+DESCRIPTION:Entrée gratuite. Spectacle musical des élèves du Lycée Condorcet.
+END:VEVENT
+END:VCALENDAR
