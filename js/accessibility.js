@@ -1,65 +1,99 @@
 
+// Accessibility helpers for modals (non-intrusive wrapper)
 (function(){
-  const main = document.querySelector('main') || document.getElementById('main-content');
-  const modals = document.querySelectorAll('.modal');
+  const main = document.getElementById('main-content') || document.querySelector('main');
   let lastFocused = null;
 
-  function trapFocus(container, e) {
-    const focusables = container.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+  function getFocusable(container){
+    return Array.from(container.querySelectorAll(
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])'
+    )).filter(el => el.offsetParent !== null || el.getAttribute('aria-hidden') !== 'true');
+  }
+
+  function trapKeydown(e, container){
+    if (e.key !== 'Tab' && e.key !== 'Escape') return;
+    const focusables = getFocusable(container);
+    if (e.key === 'Escape'){
+      const closeBtn = container.querySelector('[data-modal-close], .close, [aria-label="Fermer"], [aria-label="Close"]');
+      if (closeBtn) closeBtn.click();
+      e.stopPropagation();
+      e.preventDefault();
+      return;
+    }
     if (focusables.length === 0) return;
     const first = focusables[0];
     const last = focusables[focusables.length - 1];
-    if (e.key === 'Tab') {
-      if (e.shiftKey && document.activeElement === first) {
-        last.focus();
-        e.preventDefault();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        first.focus();
-        e.preventDefault();
-      }
-    } else if (e.key === 'Escape') {
-      // Try to find a close button
-      const close = container.querySelector('[data-modal-close], .close, [aria-label="Fermer"], [aria-label="Close"]');
-      if (close) close.click();
+    if (e.shiftKey && document.activeElement === first){
+      last.focus();
+      e.preventDefault();
+    } else if (!e.shiftKey && document.activeElement === last){
+      first.focus();
+      e.preventDefault();
     }
   }
 
-  function openEnhance(modal) {
-    lastFocused = document.activeElement;
-    if (main) {
-      main.setAttribute('aria-hidden', 'true');
-    }
-    modal.setAttribute('aria-hidden', 'false');
-    modal.style.display = 'block';
+  function enhanceOpen(modal){
+    if (!modal) return;
+    modal.setAttribute('aria-hidden','false');
+    if (main) main.setAttribute('aria-hidden','true');
     const content = modal.querySelector('.modal-content, [role="document"]') || modal;
-    content.setAttribute('tabindex', '-1');
+    // ensure content focusable
+    if (!content.hasAttribute('tabindex')) content.setAttribute('tabindex','-1');
     content.focus({preventScroll:true});
-    modal.addEventListener('keydown', (e)=>trapFocus(content,e));
+    const keyHandler = (e)=>trapKeydown(e, modal);
+    modal.__a11yKeyHandler = keyHandler;
+    modal.addEventListener('keydown', keyHandler);
   }
 
-  function closeEnhance(modal) {
-    if (main) {
-      main.removeAttribute('aria-hidden');
+  function enhanceClose(modal){
+    if (!modal) return;
+    modal.setAttribute('aria-hidden','true');
+    if (main) main.removeAttribute('aria-hidden');
+    if (modal.__a11yKeyHandler){
+      modal.removeEventListener('keydown', modal.__a11yKeyHandler);
+      delete modal.__a11yKeyHandler;
     }
-    modal.setAttribute('aria-hidden', 'true');
-    modal.style.display = 'none';
-    if (lastFocused && typeof lastFocused.focus === 'function') {
-      lastFocused.focus();
+    if (lastFocused && typeof lastFocused.focus === 'function'){
+      try { lastFocused.focus(); } catch(e){}
     }
   }
 
-  // Expose helpers so existing open/close functions can call them
-  window.__a11yOpenModal = openEnhance;
-  window.__a11yCloseModal = closeEnhance;
+  // Wrap existing modal open/close functions (if present)
+  function wrapOpenClose(openName, closeName, modalId){
+    const modal = document.getElementById(modalId);
+    if (!window[openName] || typeof window[openName] !== 'function') return;
+    if (!window[closeName] || typeof window[closeName] !== 'function') return;
 
-  // Set dialog roles/attributes
-  modals.forEach(m => {
-    m.setAttribute('role','dialog');
-    m.setAttribute('aria-modal','true');
-    if (!m.hasAttribute('aria-label') && !m.hasAttribute('aria-labelledby')) {
-      const id = m.id || 'modal';
-      m.setAttribute('aria-label', id.replace(/[-_]/g,' '));
+    const originalOpen = window[openName];
+    const originalClose = window[closeName];
+
+    window[openName] = function(...args){
+      // remember focus/source element
+      lastFocused = document.activeElement;
+      const ret = originalOpen.apply(this, args);
+      // When original has set display, enhance
+      enhanceOpen(modal);
+      return ret;
+    };
+    window[closeName] = function(...args){
+      const ret = originalClose.apply(this, args);
+      enhanceClose(modal);
+      return ret;
+    };
+  }
+
+  // Character modal
+  wrapOpenClose('openCharacterModal', 'closeModal', 'character-modal');
+  // Historical character modal
+  wrapOpenClose('openHistoricalCharacterModal', 'closeHistoricalCharacterModal', 'historical-character-modal');
+
+  // For safety: if open/close functions are bound to click without wrapping,
+  // also capture clicks to remember the last focused trigger.
+  document.addEventListener('click', (e)=>{
+    const t = e.target;
+    if (!t) return;
+    if (t.closest('[data-modal-open], .character-card, button, a')){
+      lastFocused = t.closest('[data-modal-open], .character-card, button, a') || t;
     }
-    m.setAttribute('aria-hidden','true'); // default hidden
-  });
+  }, true);
 })();

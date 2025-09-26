@@ -7,9 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
 });
 
-async function initializeApp() {
+function initializeApp() {
     // Démarrer l'écran de chargement
-    if (window.dataReady) { try { await window.dataReady; } catch(e){} }
     startLoadingScreen();
     
     // Initialiser les événements
@@ -80,81 +79,178 @@ function generateCharacterCards() {
 }
 
 function createCharacterCard(character) {
-    const tmpl = document.getElementById('character-card-template');
-    if (tmpl) {
-      const node = tmpl.content.cloneNode(true);
-      const root = node.querySelector('.character-card');
-      root.dataset.id = character.id;
-      const img = node.querySelector('.character-image img');
-      if (img) { img.src = character.image; img.alt = character.name; }
-      node.querySelector('.character-name').textContent = character.name;
-      node.querySelector('.character-title').textContent = character.title || '';
-      node.querySelector('.character-description').textContent = character.description || '';
-      const skills = node.querySelector('.character-skills');
-      if (skills && Array.isArray(character.competences)) {
-        character.competences.slice(0,4).forEach(s => { const span = document.createElement('span'); span.className='skill-badge'; span.textContent = s; skills.appendChild(span); });
-      }
-      const fills = node.querySelectorAll('.stat-fill');
-      const stats = character.stats || {};
-      if (fills[0]) fills[0].style.width = (stats.pouvoir||0) + '%';
-      if (fills[1]) fills[1].style.width = (stats.charisme||0) + '%';
-      if (fills[2]) fills[2].style.width = (stats.intelligence||0) + '%';
-      if (fills[3]) fills[3].style.width = (stats.strategie||stats.stratégie||0) + '%';
-      const btn = node.querySelector('[data-modal-open="character-modal"]');
-      if (btn) btn.addEventListener('click', ()=>openCharacterModal(character.id));
-      const wrapper = document.createElement('div');
-      wrapper.className = "character-card-wrapper";
-      wrapper.appendChild(node);
-      return wrapper;
-    }
-    // Fallback to existing HTML builder (minimal)
-    const div = document.createElement('div');
-    div.textContent = character.name;
-    div.addEventListener('click', ()=>openCharacterModal(character.id));
-    return div;
+    const card = document.createElement('div');
+    card.className = 'character-card';
+    card.onclick = () => openCharacterModal(character.id);
+    
+    // Générer les badges de compétences (limité à 2 pour l'affichage)
+    const skillsHtml = character.competences.slice(0, 2).map(skill => 
+        `<span class="skill-badge">${skill}</span>`
+    ).join('');
+    
+    // Ajouter +X si plus de compétences
+    const moreSkills = character.competences.length > 2 ? 
+        `<span class="skill-badge">+ ${character.competences.length - 2}</span>` : '';
+    
+    card.innerHTML = `
+        <div class="character-image-container">
+            <img src="${character.image}" 
+                 alt="${character.name}" 
+                 class="character-image"
+                 onerror="this.src='images/placeholder.jpg'">
+            
+            <div class="character-type-badge">${character.type}</div>
+            <div class="character-emoji-badge">${character.emoji}</div>
+        </div>
+        
+        <div class="character-content">
+            <h3 class="character-name">${character.name}</h3>
+            <p class="character-title">${character.title}</p>
+            <p class="character-description">${character.description}</p>
+            
+            <div class="character-skills">
+                ${skillsHtml}
+                ${moreSkills}
+            </div>
+            
+            <div class="character-stats">
+                <div class="stat-bar">
+                    <span class="stat-label">Pouvoir</span>
+                    <div class="stat-progress">
+                        <div class="stat-fill" style="width: ${character.stats.pouvoir}%"></div>
+                    </div>
+                    <span class="stat-value">${character.stats.pouvoir}</span>
+                </div>
+                <div class="stat-bar">
+                    <span class="stat-label">Charisme</span>
+                    <div class="stat-progress">
+                        <div class="stat-fill" style="width: ${character.stats.charisme}%"></div>
+                    </div>
+                    <span class="stat-value">${character.stats.charisme}</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    return card;
 }
 
 // ===== MODAL DES PERSONNAGES =====
 function openCharacterModal(characterId) {
     const character = getCharacterById(characterId);
     if (!character) return;
+    
     currentCharacter = character;
     const modal = document.getElementById('character-modal');
     const modalBody = document.getElementById('modal-body');
-    const tmpl = document.getElementById('character-modal-template');
-    if (tmpl) {
-        modalBody.innerHTML = "";
-        const node = tmpl.content.cloneNode(true);
-        // Fill fields
-        const header = node.querySelector('.modal-header');
-        if (header) {
-          const h2 = header.querySelector('.modal-title'); if (h2) h2.textContent = character.name + (character.emoji ? ' ' + character.emoji : '');
-          const sub = header.querySelector('.modal-subtitle'); if (sub) sub.textContent = character.title || '';
-        }
-        const bg = node.querySelector('[data-bg]');
-        if (bg) {
-          bg.setAttribute('style', "background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('"+character.image+"')");
-        }
-        const body = node.querySelector('.modal-body');
-        if (body) {
-          const desc = document.createElement('p'); desc.textContent = character.description || ''; body.appendChild(desc);
-        }
-        // Close buttons
-        node.querySelectorAll('[data-modal-close], .close').forEach(btn => btn.addEventListener('click', closeModal));
-        modalBody.appendChild(node);
-    } else {
-        // Fallback to previous innerHTML method (kept minimal)
-        modalBody.innerHTML = '<h2>'+character.name+'</h2><p>'+ (character.description||'') +'</p>';
-    }
-    modal.style.display = "block";
-    if (window.__a11yOpenModal) window.__a11yOpenModal(modal);
-    if (window.__a11yOpenModal) window.__a11yOpenModal(modal);
+    
+    // Générer toutes les compétences
+    const allSkillsHtml = character.competences.map(skill => 
+        `<span class="skill-badge">${skill}</span>`
+    ).join('');
+    
+    modalBody.innerHTML = `
+        <div class="relative">
+            <!-- Image de fond avec overlay -->
+            <div class="h-64 bg-cover bg-top relative rounded-t-2xl overflow-hidden" 
+                 style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('${character.image}')">
+                
+                <!-- Badge emoji -->
+                <div class="absolute top-4 right-4 bg-white/90 rounded-full w-16 h-16 flex items-center justify-center text-2xl shadow-lg">
+                    ${character.emoji}
+                </div>
+                
+                <!-- Nom et titre -->
+                <div class="absolute bottom-4 left-4 text-white">
+                    <h2 class="text-3xl font-bold mb-2">${character.name}</h2>
+                    <p class="text-xl text-amber-200">${character.title}</p>
+                    <div class="flex gap-2 mt-2">
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${character.type}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenu de la modal -->
+            <div class="p-6 space-y-6">
+                
+                <!-- Description -->
+                <div class="bg-white/80 rounded-xl p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        🛡️ Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">${character.description}</p>
+                </div>
+                
+                <!-- Statistiques -->
+                <div class="bg-white/80 rounded-xl p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        ⚡ Statistiques
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        ${Object.entries(character.stats).map(([stat, value]) => `
+                            <div class="stat-bar">
+                                <span class="stat-label capitalize text-sm font-medium text-gray-600">${stat}</span>
+                                <div class="stat-progress mt-1">
+                                    <div class="stat-fill bg-gradient-to-r ${getStatColor(stat)}" style="width: ${value}%"></div>
+                                </div>
+                                <span class="stat-value text-sm font-bold">${value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <!-- Compétences -->
+                <div class="bg-white/80 rounded-xl p-4">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        🎯 Compétences
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${allSkillsHtml}
+                    </div>
+                </div>
+                
+                <!-- Pouvoir Spécial -->
+                <div class="bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl p-4 border-2 border-amber-200">
+                    <h3 class="text-xl font-bold text-amber-800 mb-3 flex items-center gap-2">
+                        ⚡ Pouvoir Spécial
+                    </h3>
+                    <h4 class="text-lg font-semibold text-amber-700 mb-2">"${character.pouvoirSpecial.nom}"</h4>
+                    <p class="text-amber-700 italic">${character.pouvoirSpecial.description}</p>
+                </div>
+                
+                <!-- Citation -->
+                <div class="bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl p-4 border-2 border-blue-200">
+                    <h3 class="text-xl font-bold text-blue-800 mb-3 flex items-center gap-2">
+                        💬 Citation
+                    </h3>
+                    <blockquote class="text-blue-700 italic text-lg">
+                        "${character.citation}"
+                    </blockquote>
+                </div>
+                
+                <!-- Faiblesse -->
+                <div class="bg-gradient-to-r from-red-100 to-pink-100 rounded-xl p-4 border-2 border-red-200">
+                    <h3 class="text-xl font-bold text-red-800 mb-3 flex items-center gap-2">
+                        ❌ Faiblesse
+                    </h3>
+                    <p class="text-red-700 font-medium">${character.faiblesse}</p>
+                </div>
+                
+            </div>
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     const modal = document.getElementById('character-modal');
-    if (window.__a11yCloseModal) window.__a11yCloseModal(modal);
-    else { modal.style.display = "none"; }
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    currentCharacter = null;
 }
 
 function getStatColor(stat) {
@@ -453,8 +549,8 @@ function openHistoricalCharacterModal(characterName) {
 
 function closeHistoricalCharacterModal() {
     const modal = document.getElementById('historical-character-modal');
-    if (window.__a11yCloseModal) window.__a11yCloseModal(modal);
-    else { modal.style.display = "none"; }
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 }
 
 // Fonction utilitaire pour ajuster la couleur
