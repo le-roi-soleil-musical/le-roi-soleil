@@ -1,348 +1,830 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Le Roi Soleil - Comédie Musicale</title>
-<link href="favicon.ico" rel="icon" type="image/x-icon"/>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Animate.css pour les animations -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet"/>
-<!-- CSS personnalisé -->
-<link href="css/style.css" rel="stylesheet"/>
-<!-- Configuration Tailwind -->
-<script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                    }
-                }
-            }
-        }
-    </script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Roi Soleil - Lycée Condorcet Sydney</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gradient-to-br from-amber-50 via-rose-100 to-orange-100 min-h-screen">
-<!-- Écran de chargement -->
-<div class="fixed inset-0 bg-gradient-to-br from-amber-50 via-rose-100 to-orange-100 flex items-center justify-center z-50" id="loading-screen">
-<div class="text-center">
-<div class="text-8xl mb-8 animate-spin">👑</div>
-<h1 class="text-4xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent mb-4">Le Roi Soleil</h1>
-<p class="text-xl text-amber-700">Chargement de l'expérience royale...</p>
-<div class="w-64 h-2 bg-amber-200 rounded-full mx-auto mt-8 overflow-hidden">
-<div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full w-0" id="progress-bar"></div>
-</div>
-</div>
-</div>
-<!-- Navigation -->
-<nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-amber-200 shadow-lg">
-<div class="container mx-auto px-6 py-4">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-3 cursor-pointer hover:scale-105 transition-transform">
-<span class="text-3xl">👑</span>
-<span class="text-xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Le Roi Soleil</span>
-</div>
-<div class="hidden md:flex items-center gap-6">
-<button class="text-amber-700 hover:text-amber-900 font-medium transition-colors duration-200 hover:scale-110" onclick="scrollToSection('histoire')">Histoire</button>
-<button class="text-amber-700 hover:text-amber-900 font-medium transition-colors duration-200 hover:scale-110" onclick="scrollToSection('personnages')">Personnages</button>
-<button class="text-amber-700 hover:text-amber-900 font-medium transition-colors duration-200 hover:scale-110" onclick="scrollToSection('dates')">Dates</button>
-<button class="text-amber-700 hover:text-amber-900 font-medium transition-colors duration-200 hover:scale-110" onclick="scrollToSection('faits-historiques')">     Faits historiques     </button>
-</div>
-<!-- Menu mobile -->
-<button class="md:hidden mobile-menu-button" onclick="toggleMobileMenu()">
-<div class="hamburger-icon">
-<span></span>
-<span></span>
-<span></span>
-</div>
-</button>
-</div>
-</div>
-<!-- Menu mobile dropdown -->
-<div class="mobile-menu" id="mobile-menu">
-<div class="mobile-menu-content">
-<button class="mobile-menu-item" onclick="scrollToSection('histoire')">📚 Histoire</button>
-<button class="mobile-menu-item" onclick="scrollToSection('personnages')">👥 Personnages</button>
-<button class="mobile-menu-item" onclick="scrollToSection('faits-historiques')">     📜 Faits historiques     </button>
-<button class="mobile-menu-item" onclick="scrollToSection('dates')">📅 Dates</button>
-</div>
-</div>
-</nav>
-<!-- Contenu principal -->
-<main class="pt-20" id="main-content">
-<!-- Section Hero -->
-<section class="min-h-screen flex items-center justify-center relative overflow-hidden" id="hero">
-<!-- Particules flottantes -->
-<div class="absolute inset-0 overflow-hidden pointer-events-none">
-<div class="particle particle-1">✨</div>
-<div class="particle particle-2">👑</div>
-<div class="particle particle-3">⭐</div>
-<div class="particle particle-4">💫</div>
-<div class="particle particle-5">🌟</div>
-</div>
-<div class="container mx-auto px-6 text-center relative z-10">
-<h1 class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6 animate__animated animate__fadeInUp">
-                    Le Roi Soleil
-                </h1>
-<p class="text-2xl md:text-3xl text-amber-800 mb-8 animate__animated animate__fadeInUp animate__delay-1s">
-                    Comédie Musicale du Lycée Condorcet
-                </p>
-<p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto mb-12 animate__animated animate__fadeInUp animate__delay-2s">
-                    Plongez dans l'épopée musicale du Roi-Soleil, une création originale qui vous transportera dans les fastes de Versailles et les intrigues de la cour de Louis XIV.
-                </p>
-<!-- Cartes d'information -->
-<div class="grid md:grid-cols-3 gap-8 mb-12 animate__animated animate__fadeInUp animate__delay-3s">
-<div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-4xl mb-4">🎭</div>
-<h3 class="text-xl font-bold text-amber-800 mb-2">Spectacle Musical</h3>
-<p class="text-gray-600">Une production complète avec chants, danses et costumes d'époque</p>
-</div>
-<div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-4xl mb-4">🎫</div>
-<h3 class="text-xl font-bold text-amber-800 mb-2">Entrée Gratuite</h3>
-<p class="text-gray-600">Spectacle accessible à tous, venez nombreux découvrir ce chef-d'œuvre</p>
-</div>
-<div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-4xl mb-4">📅</div>
-<h3 class="text-xl font-bold text-amber-800 mb-2">Mars 2026</h3>
-<p class="text-gray-600">Trois représentations exceptionnelles au Lycée Condorcet</p>
-</div>
-</div>
-<!-- Boutons d'action -->
-<div class="flex flex-col sm:flex-row gap-4 justify-center animate__animated animate__fadeInUp animate__delay-4s">
-<button class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:from-amber-600 hover:to-orange-600" onclick="scrollToSection('dates')">
-                        Voir les Dates
-                    </button>
-<button class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:from-purple-600 hover:to-pink-600" onclick="scrollToSection('personnages')">     Découvrir les Personnages     </button>
-</div>
-</div>
-</section>
-<!-- Section Histoire -->
-<section class="py-20 bg-white/50" id="histoire">
-<div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent"> <i class="fa-regular fa-crown title-fa"></i>  L'Histoire du Roi Soleil  <i class="fa-regular fa-crown title-fa"></i> </h2>
-<p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
-                    Découvrez l'épopée fascinante de Louis XIV à travers notre comédie musicale originale
-                </p>
-<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-<div class="bg-gradient-to-br from-yellow-100 to-amber-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-5xl mb-4 text-center">👑</div>
-<h3 class="text-2xl font-bold text-amber-800 mb-4 text-center">Un Jeune Roi en Devenir</h3>
-<p class="text-gray-700 text-center">Louis XIV monte sur le trône à seulement 5 ans, guidé par sa mère Anne d'Autriche et le cardinal Mazarin dans un royaume en pleine transformation.</p>
-</div>
-<div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-5xl mb-4 text-center">💕</div>
-<h3 class="text-2xl font-bold text-rose-800 mb-4 text-center">L'Amour Interdit</h3>
-<p class="text-gray-700 text-center">La passion déchirante entre Louis XIV et Marie Mancini, nièce de Mazarin, un amour impossible qui marquera à jamais le cœur du jeune roi.</p>
-</div>
-<div class="bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-5xl mb-4 text-center">🛡️</div>
-<h3 class="text-2xl font-bold text-purple-800 mb-4 text-center">Intrigues de Cour</h3>
-<p class="text-gray-700 text-center">Les complots, les alliances et les trahisons qui tissent la toile complexe de la cour de France, entre pouvoir et survie.</p>
-</div>
-<div class="bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-5xl mb-4 text-center">🎵</div>
-<h3 class="text-2xl font-bold text-blue-800 mb-4 text-center">Spectacle Musical Total</h3>
-<p class="text-gray-700 text-center">Chansons originales, chorégraphies somptueuses et costumes d'époque pour une immersion totale dans le Grand Siècle.</p>
-</div>
-<div class="bg-gradient-to-br from-red-100 to-orange-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-5xl mb-4 text-center">⚔️</div>
-<h3 class="text-2xl font-bold text-red-800 mb-4 text-center">Conflits et Passions</h3>
-<p class="text-gray-700 text-center">Les choix difficiles du roi entre ses désirs personnels et les exigences du royaume, dans un monde en perpétuel conflit.</p>
-</div>
-<div class="bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-5xl mb-4 text-center">⭐</div>
-<h3 class="text-2xl font-bold text-green-800 mb-4 text-center">La Naissance d'une Légende</h3>
-<p class="text-gray-700 text-center">Comment le jeune Louis XIV devient le Roi-Soleil, symbole de la grandeur française et modèle pour l'Europe entière.</p>
-</div>
-</div>
-<!-- Résumé -->
-<div class="bg-gradient-to-r from-amber-100 to-orange-100 rounded-2xl p-8 shadow-lg border-2 border-amber-200">
-<h3 class="text-3xl font-bold text-amber-800 mb-6 text-center">Une Épopée Musicale Inoubliable</h3>
-<p class="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto">
-                        Notre comédie musicale retrace avec passion et authenticité les moments clés de la jeunesse de Louis XIV. 
-                        Inspirée des œuvres de <strong class="text-amber-800">Dove Attia</strong>, <strong class="text-amber-800">Albert Cohen</strong> et 
-                        <strong class="text-amber-800">Kamel Ouali</strong>, cette création originale du Lycée Condorcet vous plongera dans l'univers 
-                        fascinant de la cour de France. Découvrez comment l'amour impossible avec <strong class="text-rose-600">Marie Mancini</strong> 
-                        a façonné le destin du plus grand roi de France, dans un spectacle mêlant histoire, émotion et spectacle total.
-                    </p>
-</div>
-</div>
-</section>
-<!-- Section Personnages -->
-<section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50" id="personnages">
-<div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"> Les Personnages  </h2>
-<p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">     Découvrez les personnages emblématiques de cette comédie musicale légendaire     </p>
-<!-- Grille des personnages -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="characters-grid">
-<!-- Les cartes seront générées par JavaScript -->
-</div>
-<!-- Call to action -->
-<div class="text-center mt-16">
-<div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 shadow-lg border-2 border-purple-200 max-w-2xl mx-auto">
-<h3 class="text-2xl font-bold text-purple-800 mb-4">🎭 Découvrez Leurs Histoires</h3>
-<p class="text-gray-700 mb-6">
-                            Cliquez sur chaque personnage pour découvrir son histoire, ses compétences et ses secrets dans cette épopée musicale inoubliable.
-                        </p>
-</div>
-</div>
-</div>
-</section>
-<!-- Section Faits Historiques -->
-<section class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50" id="faits-historiques">
-<div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"><i class="fa-regular fa-scroll title-fa"></i> Faits Historiques <i class="fa-regular fa-scroll title-fa"></i> </h2>
-<p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
-                    Les événements majeurs qui ont marqué le règne du Roi Soleil
-                </p>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="historical-events-grid">
-<!-- Les cartes d'événements historiques seront générées ici par JavaScript -->
-</div>
-</div>
-</section>
-<!-- Section Informations Pratiques -->
-<section class="py-20 bg-white/50" id="dates">
-<div class="container mx-auto px-6">
-<h2 class="text-4xl md:text-5xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"><i class="fa-regular fa-map-location-dot title-fa"></i> Informations Pratiques  <i class="fa-regular fa-map-location-dot title-fa"></i> </h2>
-<p class="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
-                    Toutes les informations pour assister au spectacle
-                </p>
-<div class="grid md:grid-cols-2 gap-8 mb-16">
-<div class="bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-<div class="text-5xl mb-4 text-center">🏫</div>
-<h3 class="text-2xl font-bold text-blue-800 mb-4 text-center">Lycée Condorcet</h3>
-<p class="text-gray-700 text-center text-lg">Entrée sur Moverly Road</p>
-</div>
-<div class="bg-gradient-to-br from-amber-100 to-yellow-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-<div class="text-5xl mb-4 text-center">🎫</div>
-<h3 class="text-2xl font-bold text-amber-800 mb-4 text-center">ENTRÉE GRATUITE</h3>
-<p class="text-gray-700 text-center text-lg">Spectacle accessible à tous</p>
-</div>
-</div>
-<!-- Dates des représentations -->
-<div class="mb-16">
-<h3 class="text-3xl font-bold text-center mb-8 text-gray-800">📅 Dates des Représentations</h3>
-<div class="grid md:grid-cols-3 gap-6">
-<div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-center">
-<div class="text-3xl mb-3">🎭</div>
-<h4 class="text-xl font-bold text-rose-800 mb-2">Samedi 14 Mars 2026</h4>
-<p class="text-lg text-gray-700 font-semibold">18h30</p>
-</div>
-</div>
-<div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-center">
-<div class="text-3xl mb-3">🎭</div>
-<h4 class="text-xl font-bold text-rose-800 mb-2">Jeudi 19 Mars 2026</h4>
-<p class="text-lg text-gray-700 font-semibold">18h30</p>
-</div>
-</div>
-<div class="bg-gradient-to-br from-rose-100 to-pink-100 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-center">
-<div class="text-3xl mb-3">🎭</div>
-<h4 class="text-xl font-bold text-rose-800 mb-2">Samedi 21 Mars 2026</h4>
-<p class="text-lg text-gray-700 font-semibold">18h30</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Services sur place -->
-<div class="mb-16">
-<h3 class="text-3xl font-bold text-center mb-8 text-gray-800">🍽️ Services sur Place</h3>
-<div class="grid md:grid-cols-3 gap-8">
-<div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-center">
-<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-2xl">🍴</span>
-</div>
-<h4 class="text-xl font-bold text-gray-800 mb-3">Restauration</h4>
-<p class="text-gray-600">Stand de restauration disponible sur place pour vous restaurer avant ou après le spectacle</p>
-</div>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-center">
-<div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-2xl">🎨</span>
-</div>
-<h4 class="text-xl font-bold text-gray-800 mb-3">Artisan Peintre</h4>
-<p class="text-gray-600">Découvrez les œuvres d'un artiste peintre local et repartez avec une création unique</p>
-</div>
-</div>
-<div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-<div class="text-center">
-<div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-<span class="text-2xl">💎</span>
-</div>
-<h4 class="text-xl font-bold text-gray-800 mb-3">Créateur de Bijoux</h4>
-<p class="text-gray-600">Bijoux artisanaux et créations originales à découvrir et à offrir</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Call to action final -->
-<div class="bg-gradient-to-r from-green-100 to-emerald-100 rounded-2xl p-8 shadow-lg border-2 border-green-200 text-center">
-<h3 class="text-3xl font-bold text-green-800 mb-4">✨ Venez Nombreux ! ✨</h3>
-<p class="text-lg text-gray-700 mb-6 max-w-3xl mx-auto">
-                        Ne manquez pas cette occasion unique de découvrir cette création exceptionnelle des élèves du <strong>Lycée Condorcet</strong>. 
-                        Un spectacle qui promet d'être inoubliable, mêlant histoire, musique et émotion dans un cadre exceptionnel.
-                    </p>
-<button class="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:from-green-600 hover:to-emerald-600">
-                        Réservez dès maintenant ces dates dans votre agenda !
-                    </button>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-gradient-to-r from-purple-800 to-indigo-900 text-white py-16">
-<div class="container mx-auto px-6 text-center">
-<div class="mb-8">
-<h3 class="text-3xl font-bold mb-6 flex items-center justify-center gap-3">
-<span class="text-4xl">🎭</span>
-                    Le Roi Soleil
-                </h3>
-<p class="text-xl mb-4">Comédie Musicale du Lycée Condorcet</p>
-<p class="text-lg mb-2">Mars 2026 - Entrée Gratuite</p>
-<p class="text-purple-300">Moverly Road, Lycée Condorcet</p>
-</div>
-<div class="border-t border-purple-600 pt-8 text-purple-300">
-<p>© 2026 Lycée Condorcet - Tous droits réservés</p>
-<p class="mt-2 text-sm">Une production étudiante exceptionnelle</p>
-</div>
-</div>
-</footer>
-<!-- Bouton retour en haut -->
-<button class="fixed bottom-8 right-8 bg-gradient-to-r from-amber-500 to-orange-500 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-40 hover:scale-110" id="back-to-top" onclick="scrollToTop()">
-<span class="text-2xl">👑</span>
-</button>
-<!-- Modal pour les personnages -->
-<div aria-hidden="true" aria-label="Détails du personnage" aria-modal="true" class="modal" id="character-modal" role="dialog">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">×</span>
-<div id="modal-body">
-<!-- Contenu généré par JavaScript -->
-</div>
-</div>
-</div>
-<!-- Modal Personnage Historique -->
-<div aria-hidden="true" aria-label="Personnage historique" aria-modal="true" class="modal" id="historical-character-modal" role="dialog">
-<div class="modal-content historical-character-modal-content">
-<span class="close" onclick="closeHistoricalCharacterModal()">×</span>
-<div id="historical-character-content">
-<!-- Le contenu sera généré dynamiquement -->
-</div>
-</div>
-</div>
-<!-- Scripts -->
-<script src="js/characters.js"></script>
-<script src="js/historical-events.js"></script>
-<script src="js/historical-characters.js"></script>
-<script src="js/main.js"></script><script src="js/accessibility.js"></script>
+<body>
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="mask-loader">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,20 Q60,25 65,35 L75,50 Q70,60 60,65 L50,80 L40,65 Q30,60 25,50 L35,35 Q40,25 50,20 Z" 
+                      fill="none" stroke="#d4af37" stroke-width="2">
+                    <animate attributeName="stroke-dasharray" from="0,200" to="200,0" dur="2s" repeatCount="indefinite"/>
+                </path>
+                <ellipse cx="35" cy="40" rx="5" ry="8" fill="#1a2332"/>
+                <ellipse cx="65" cy="40" rx="5" ry="8" fill="#1a2332"/>
+            </svg>
+        </div>
+        <div class="loader-text">CHARGEMENT DE LA COUR...</div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav id="nav">
+        <ul>
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#dates">Représentations</a></li>
+            <li><a href="#histoire">Histoire</a></li>
+            <li><a href="#spectacle">Le Spectacle</a></li>
+            <li><a href="#apropos">À Propos</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="cards-circle" id="cardsCircle"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">LE ROI SOLEIL</h1>
+            <p class="hero-subtitle">Une Comédie Musicale par le Lycée Condorcet Sydney</p>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('galerie').scrollIntoView({behavior: 'smooth'})">
+            <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h16z" transform="rotate(180 12 12)"/></svg>
+        </div>
+    </section>
+
+    <!-- GALERIE SECTION -->
+    <section id="galerie">
+        <h2 class="section-title galerie-title-dark">✦ Collection de Cartes ✦</h2>
+        <div class="cards-grid" id="cardsGrid"></div>
+    </section>
+
+    <!-- DATES SECTION -->
+    <section id="dates">
+        <h2 class="section-title">Dates des Représentations</h2>
+        <div class="dates-container">
+            <div class="date-card">
+                <h3>Vendredi 14 Juin 2025</h3>
+                <p>Première représentation - 19h00<br>Auditorium du Lycée Condorcet Sydney</p>
+            </div>
+            <div class="date-card">
+                <h3>Samedi 15 Juin 2025</h3>
+                <p>Matinée - 14h30 / Soirée - 19h00<br>Auditorium du Lycée Condorcet Sydney</p>
+            </div>
+            <div class="date-card">
+                <h3>Dimanche 16 Juin 2025</h3>
+                <p>Dernière représentation - 15h00<br>Auditorium du Lycée Condorcet Sydney</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTOIRE SECTION -->
+    <section id="histoire">
+        <h2 class="section-title">Faits Historiques</h2>
+        <p class="events-subtitle">Les événements majeurs qui ont marqué le règne du Roi Soleil</p>
+
+        <!-- EVENTS CARDS GRID -->
+        <div class="events-grid">
+            <!-- La Fronde -->
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="event-header-content">
+                        <div class="event-header-left">
+                            <div class="event-icon">⚔️</div>
+                            <div class="event-title">La Fronde</div>
+                        </div>
+                        <div class="event-header-right">
+                            <div class="event-badge">1648-1653</div>
+                            <div class="event-category">Guerre civile</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">Série de guerres civiles contre l'autorité royale et Mazarin. Cette révolte marque profondément le jeune Louis XIV.</p>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-blue">Impact :</div>
+                        <div class="event-section-content">Renforce la volonté d'absolutisme royal</div>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-green">Conséquences :</div>
+                        <ul>
+                            <li>Méfiance envers Paris</li>
+                            <li>Volonté de contrôler la noblesse</li>
+                        </ul>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-gold">Personnages clés :</div>
+                        <div class="characters-list">
+                            <span class="character-badge" onclick="openCharacterModal('louis14')">Louis XIV</span>
+                            <span class="character-badge" onclick="openCharacterModal('anne')">Anne d'Autriche</span>
+                            <span class="character-badge" onclick="openCharacterModal('mazarin')">Mazarin</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Construction de Versailles -->
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="event-header-content">
+                        <div class="event-header-left">
+                            <div class="event-icon">🏰</div>
+                            <div class="event-title">Construction de Versailles</div>
+                        </div>
+                        <div class="event-header-right">
+                            <div class="event-badge">1661-1710</div>
+                            <div class="event-category">Architecture</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">Transformation d'un pavillon de chasse en palais somptueux. Versailles devient le symbole de la grandeur française.</p>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-blue">Impact :</div>
+                        <div class="event-section-content">Centralisation du pouvoir et de la cour</div>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-green">Conséquences :</div>
+                        <ul>
+                            <li>Contrôle de la noblesse</li>
+                            <li>Rayonnement artistique</li>
+                        </ul>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-gold">Personnages clés :</div>
+                        <div class="characters-list">
+                            <span class="character-badge" onclick="openCharacterModal('louis14')">Louis XIV</span>
+                            <span class="character-badge" onclick="openCharacterModal('lenotre')">Le Nôtre</span>
+                            <span class="character-badge" onclick="openCharacterModal('mansart')">Mansart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guerre de Hollande -->
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="event-header-content">
+                        <div class="event-header-left">
+                            <div class="event-icon">⚔️</div>
+                            <div class="event-title">Guerre de Hollande</div>
+                        </div>
+                        <div class="event-header-right">
+                            <div class="event-badge">1672-1678</div>
+                            <div class="event-category">Conflit militaire</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">Guerre menée par Louis XIV contre les Provinces-Unies. Apogée de la puissance militaire française.</p>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-blue">Impact :</div>
+                        <div class="event-section-content">Affirmation de l'hégémonie française en Europe</div>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-green">Conséquences :</div>
+                        <ul>
+                            <li>Conquêtes territoriales</li>
+                            <li>Prestige militaire</li>
+                        </ul>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-gold">Personnages clés :</div>
+                        <div class="characters-list">
+                            <span class="character-badge" onclick="openCharacterModal('louis14')">Louis XIV</span>
+                            <span class="character-badge" onclick="openCharacterModal('turenne')">Turenne</span>
+                            <span class="character-badge" onclick="openCharacterModal('conde')">Condé</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Révocation Édit de Nantes -->
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="event-header-content">
+                        <div class="event-header-left">
+                            <div class="event-icon">⛪</div>
+                            <div class="event-title">Révocation de l'Édit de Nantes</div>
+                        </div>
+                        <div class="event-header-right">
+                            <div class="event-badge">1685</div>
+                            <div class="event-category">Décision religieuse</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">Louis XIV révoque l'édit de tolérance religieuse d'Henri IV. Les protestants perdent leurs droits.</p>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-blue">Impact :</div>
+                        <div class="event-section-content">Unification religieuse du royaume mais massif de l'exil</div>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-green">Conséquences :</div>
+                        <ul>
+                            <li>Exode des huguenots</li>
+                            <li>Affaiblissement économique</li>
+                        </ul>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-gold">Personnages clés :</div>
+                        <div class="characters-list">
+                            <span class="character-badge" onclick="openCharacterModal('louis14')">Louis XIV</span>
+                            <span class="character-badge" onclick="openCharacterModal('maintenon')">Mme de Maintenon</span>
+                            <span class="character-badge" onclick="openCharacterModal('bossuet')">Bossuet</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guerre de la Ligue d'Augsbourg -->
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="event-header-content">
+                        <div class="event-header-left">
+                            <div class="event-icon">🛡️</div>
+                            <div class="event-title">Guerre de la Ligue d'Augsbourg</div>
+                        </div>
+                        <div class="event-header-right">
+                            <div class="event-badge">1688-1697</div>
+                            <div class="event-category">Guerre européenne</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">Coalition européenne contre l'hégémonie française. Première grande défaite de Louis XIV.</p>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-blue">Impact :</div>
+                        <div class="event-section-content">Limites de la puissance française révélées</div>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-green">Conséquences :</div>
+                        <ul>
+                            <li>Épuisement financier</li>
+                            <li>Famines</li>
+                        </ul>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-gold">Personnages clés :</div>
+                        <div class="characters-list">
+                            <span class="character-badge" onclick="openCharacterModal('louis14')">Louis XIV</span>
+                            <span class="character-badge" onclick="openCharacterModal('luxembourg')">Luxembourg</span>
+                            <span class="character-badge" onclick="openCharacterModal('vauban')">Vauban</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guerre de Succession d'Espagne -->
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="event-header-content">
+                        <div class="event-header-left">
+                            <div class="event-icon">⚔️</div>
+                            <div class="event-title">Guerre de Succession d'Espagne</div>
+                        </div>
+                        <div class="event-header-right">
+                            <div class="event-badge">1701-1714</div>
+                            <div class="event-category">Conflit dynastique</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-body">
+                    <p class="event-description">Dernière grande guerre du règne pour placer Philippe d'Anjou sur le trône d'Espagne.</p>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-blue">Impact :</div>
+                        <div class="event-section-content">Épuisement du royaume mais victoire dynastique</div>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-green">Conséquences :</div>
+                        <ul>
+                            <li>Philippe V roi d'Espagne</li>
+                            <li>Traité d'Utrecht</li>
+                        </ul>
+                    </div>
+                    <div class="event-section">
+                        <div class="event-section-title event-section-title-gold">Personnages clés :</div>
+                        <div class="characters-list">
+                            <span class="character-badge" onclick="openCharacterModal('louis14')">Louis XIV</span>
+                            <span class="character-badge" onclick="openCharacterModal('philippe')">Philippe d'Anjou</span>
+                            <span class="character-badge" onclick="openCharacterModal('marlborough')">Marlborough</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1638</div>
+                    <p>Naissance de Louis XIV au château de Saint-Germain-en-Laye, futur Roi Soleil</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1643</div>
+                    <p>Louis XIV devient roi de France à l'âge de 4 ans et 8 mois après la mort de son père Louis XIII</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1648-1653</div>
+                    <p>La Fronde : période de troubles politiques qui marque profondément le jeune roi</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1653</div>
+                    <p>Arrivée de Marie Mancini à la cour de France, nièce du cardinal Mazarin</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1658-1659</div>
+                    <p>Romance passionnée entre Louis XIV et Marie Mancini, amour impossible qui marquera le roi à jamais</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1660</div>
+                    <p>Mariage de Louis XIV avec l'Infante Marie-Thérèse d'Autriche pour sceller la paix avec l'Espagne</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1661</div>
+                    <p>Début du règne personnel de Louis XIV après la mort de Mazarin. Il annonce : "L'État, c'est moi"</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1682</div>
+                    <p>Installation officielle de la Cour au Château de Versailles, symbole de la puissance absolue</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">1715</div>
+                    <p>Mort de Louis XIV après 72 ans de règne, le plus long de l'histoire de France</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECTACLE SECTION -->
+    <section id="spectacle">
+        <h2 class="section-title">L'Histoire du Roi Soleil - Le Spectacle</h2>
+        <p class="spectacle-intro">
+            Découvrez l'épopée fascinante de Louis XIV à travers notre comédie musicale originale
+        </p>
+
+        <div class="spectacle-grid">
+            <div class="spectacle-card">
+                <div class="spectacle-card-icon">👑</div>
+                <h3 class="spectacle-card-title">Un Jeune Roi en Devenir</h3>
+                <p class="spectacle-card-text">Louis XIV monte sur le trône à seulement 5 ans, guidé par sa mère Anne d'Autriche et le cardinal Mazarin dans un royaume en pleine transformation.</p>
+            </div>
+
+            <div class="spectacle-card">
+                <div class="spectacle-card-icon">💕</div>
+                <h3 class="spectacle-card-title">L'Amour Interdit</h3>
+                <p class="spectacle-card-text">La passion déchirante entre Louis XIV et Marie Mancini, nièce de Mazarin, un amour impossible qui marquera à jamais le cœur du jeune roi.</p>
+            </div>
+
+            <div class="spectacle-card">
+                <div class="spectacle-card-icon">⚔️</div>
+                <h3 class="spectacle-card-title">Intrigues de Cour</h3>
+                <p class="spectacle-card-text">Les complots, les alliances et les trahisons qui tissent la toile complexe de la cour de France, entre pouvoir et survie.</p>
+            </div>
+
+            <div class="spectacle-card">
+                <div class="spectacle-card-icon">🎵</div>
+                <h3 class="spectacle-card-title">Spectacle Musical Total</h3>
+                <p class="spectacle-card-text">Chansons originales, chorégraphies somptueuses et costumes d'époque pour une immersion totale dans le Grand Siècle.</p>
+            </div>
+
+            <div class="spectacle-card">
+                <div class="spectacle-card-icon">⚡</div>
+                <h3 class="spectacle-card-title">Conflits et Passions</h3>
+                <p class="spectacle-card-text">Les choix difficiles du roi entre ses désirs personnels et les exigences du royaume, dans un monde en perpétuel conflit.</p>
+            </div>
+
+            <div class="spectacle-card">
+                <div class="spectacle-card-icon">⭐</div>
+                <h3 class="spectacle-card-title">La Naissance d'une Légende</h3>
+                <p class="spectacle-card-text">Comment le jeune Louis XIV devient le Roi-Soleil, symbole de la grandeur française et modèle pour l'Europe entière.</p>
+            </div>
+        </div>
+
+        <div class="spectacle-summary">
+            <h3 class="spectacle-summary-title">Une Épopée Musicale Inoubliable</h3>
+            <p class="spectacle-summary-text">
+                Notre comédie musicale retrace avec passion et authenticité les moments clés de la jeunesse de Louis XIV.
+                Inspirée des œuvres de <strong>Dove Attia</strong>, <strong>Albert Cohen</strong>
+                et <strong>Kamel Ouali</strong>, cette création originale du Lycée Condorcet vous plongera dans
+                l'univers fascinant de la cour de France. Découvrez comment l'amour impossible avec
+                <strong>Marie Mancini</strong> a façonné le destin du plus grand roi de France,
+                dans un spectacle mêlant histoire, émotion et spectacle total.
+            </p>
+        </div>
+    </section>
+
+    <!-- APROPOS SECTION -->
+    <section id="apropos">
+        <h2 class="section-title">À Propos du Projet</h2>
+        <div class="about-content">
+            <p>
+                <strong>Le Roi Soleil</strong> est une comédie musicale produite par les talentueux élèves du 
+                <strong>Lycée Condorcet Sydney</strong>. Ce spectacle vous plonge dans l'univers fascinant 
+                de la cour de Louis XIV, entre intrigues politiques, romances passionnées et ballets grandioses.
+            </p>
+            <br>
+            <p>
+                Nos étudiants se sont investis avec passion pour recréer l'atmosphère de Versailles 
+                et vous offrir un spectacle inoubliable mêlant histoire, musique et performance théâtrale.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Lycée Condorcet Sydney - Le Roi Soleil</p>
+        <p class="footer-contact">Contact: theatre@condorcet-sydney.edu.au</p>
+    </footer>
+
+    <!-- MODAL CARTES -->
+    <div class="modal" id="cardModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="card-container" id="cardContainer">
+                <div class="card-face card-front" id="cardFront"></div>
+                <div class="card-face card-back" id="cardBack"></div>
+            </div>
+            <div class="flip-instruction">Cliquez sur la carte pour la retourner</div>
+        </div>
+    </div>
+
+    <!-- CHARACTER MODALS -->
+    <div class="character-modal" id="modal-louis14">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('louis14')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">👑</div>
+                <div class="character-modal-name">Louis XIV</div>
+                <div class="character-modal-subtitle">Le Roi-Soleil</div>
+                <div class="character-modal-dates">1638-1715</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Roi de France de 1643 à 1715, Louis XIV incarne l'absolutisme royal français. Surnommé le Roi-Soleil, il fait de la France la première puissance européenne.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Règne de 72 ans, le plus long de l'histoire de France</div>
+                <div class="character-modal-fact">Créateur du château de Versailles</div>
+                <div class="character-modal-fact">Instaure l'étiquette de cour la plus raffinée d'Europe</div>
+                <div class="character-modal-fact">Mène de nombreuses guerres pour étendre le territoire français</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Monarque absolu qui centralise le pouvoir royal et fait rayonner la culture française en Europe.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Modèle de l'absolutisme royal, créateur de Versailles, symbole de la grandeur française.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-anne">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('anne')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">👸</div>
+                <div class="character-modal-name">Anne d'Autriche</div>
+                <div class="character-modal-subtitle">La Reine Mère</div>
+                <div class="character-modal-dates">1601-1666</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Reine de France, épouse de Louis XIII et mère de Louis XIV. Elle assure la régence du royaume pendant la minorité de son fils.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Régente de France de 1643 à 1651</div>
+                <div class="character-modal-fact">S'appuie sur Mazarin pour gouverner</div>
+                <div class="character-modal-fact">Défend l'autorité royale pendant la Fronde</div>
+                <div class="character-modal-fact">Éduque Louis XIV dans l'idée de l'absolutisme royal</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Régente courageuse qui préserve l'autorité royale et prépare le règne personnel de Louis XIV.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Mère protectrice du futur Roi-Soleil, garante de la continuité monarchique.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-mazarin">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('mazarin')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🎯</div>
+                <div class="character-modal-name">Jules Mazarin</div>
+                <div class="character-modal-subtitle">L'Éminence</div>
+                <div class="character-modal-dates">1602-1661</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Cardinal italien, Premier ministre de France sous Louis XIV. Successeur de Richelieu, il achève l'œuvre de centralisation royale.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Premier ministre de 1643 à 1661</div>
+                <div class="character-modal-fact">Mentor et éducateur politique de Louis XIV</div>
+                <div class="character-modal-fact">Négocie les traités de Westphalie (1648)</div>
+                <div class="character-modal-fact">Accumule une fortune considérable</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Architecte de la grandeur française, il forme Louis XIV à l'art de gouverner.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Stratège politique génial, créateur de la diplomatie française moderne.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-lenotre">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('lenotre')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🌳</div>
+                <div class="character-modal-name">André Le Nôtre</div>
+                <div class="character-modal-subtitle">L'Architecte des Jardins</div>
+                <div class="character-modal-dates">1613-1700</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Architecte paysagiste français, créateur des jardins de Versailles. Il révolutionne l'art des jardins à la française.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Créateur des jardins de Versailles</div>
+                <div class="character-modal-fact">Invente le style des jardins à la française</div>
+                <div class="character-modal-fact">Aménage aussi Vaux-le-Vicomte et les Tuileries</div>
+                <div class="character-modal-fact">Anobli par Louis XIV en reconnaissance de son génie</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Génie créateur qui donne à Versailles sa splendeur paysagère unique au monde.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Maître incontesté de l'art paysager, ses créations inspirent l'Europe entière.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-mansart">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('mansart')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🏛️</div>
+                <div class="character-modal-name">Jules Hardouin-Mansart</div>
+                <div class="character-modal-subtitle">L'Architecte du Roi</div>
+                <div class="character-modal-dates">1646-1708</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Architecte français, il transforme Versailles en palais somptueux. Premier architecte du roi, il crée le style architectural français classique.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Architecte principal de Versailles</div>
+                <div class="character-modal-fact">Créateur de la Galerie des Glaces</div>
+                <div class="character-modal-fact">Construit les Invalides et la place Vendôme</div>
+                <div class="character-modal-fact">Développe le style architectural français classique</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Architecte génial qui donne à Versailles sa magnificence architecturale.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Créateur du style français classique, ses œuvres marquent Paris et Versailles.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-turenne">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('turenne')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">⚔️</div>
+                <div class="character-modal-name">Henri de Turenne</div>
+                <div class="character-modal-subtitle">Le Grand Capitaine</div>
+                <div class="character-modal-dates">1611-1675</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Maréchal de France, l'un des plus grands stratèges militaires français. Il mène les armées de Louis XIV à la victoire.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Maréchal général des camps et armées du roi</div>
+                <div class="character-modal-fact">Vainqueur de nombreuses batailles décisives</div>
+                <div class="character-modal-fact">Réforme l'art militaire français</div>
+                <div class="character-modal-fact">Meurt au combat en 1675, pleuré par toute la France</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Stratège militaire de génie qui assure la supériorité militaire française en Europe.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Modèle du parfait général, ses tactiques révolutionnent l'art de la guerre.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-conde">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('conde')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🛡️</div>
+                <div class="character-modal-name">Louis II de Condé</div>
+                <div class="character-modal-subtitle">Le Grand Condé</div>
+                <div class="character-modal-dates">1621-1686</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Prince du sang et maréchal de France. Héros militaire de la guerre de Trente Ans, il devient l'un des plus grands généraux de Louis XIV.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Vainqueur de la bataille de Rocroi à 22 ans</div>
+                <div class="character-modal-fact">Participe à la Fronde contre le pouvoir royal</div>
+                <div class="character-modal-fact">Se réconcilie avec Louis XIV et devient son général</div>
+                <div class="character-modal-fact">Protecteur des arts et des lettres</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Génie militaire qui contribue à la gloire des armes françaises.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Héros légendaire, symbole du courage et de l'honneur militaire français.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-maintenon">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('maintenon')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">📚</div>
+                <div class="character-modal-name">Françoise de Maintenon</div>
+                <div class="character-modal-subtitle">L'Épouse Secrète</div>
+                <div class="character-modal-dates">1635-1719</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Gouvernante des enfants légitimés de Louis XIV, elle devient son épouse secrète. Influence discrète mais puissante sur le roi vieillissant.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Épouse secrète de Louis XIV vers 1683</div>
+                <div class="character-modal-fact">Fonde la Maison royale de Saint-Cyr</div>
+                <div class="character-modal-fact">Influence la politique religieuse du roi</div>
+                <div class="character-modal-fact">Encourage la révocation de l'Édit de Nantes</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Conseillère influente qui oriente la politique religieuse de Louis XIV.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Éducatrice dévouée, elle marque la fin du règne par sa piété et sa sagesse.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-bossuet">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('bossuet')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">⛪</div>
+                <div class="character-modal-name">Jacques-Bénigne Bossuet</div>
+                <div class="character-modal-subtitle">L'Aigle de Meaux</div>
+                <div class="character-modal-dates">1627-1704</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Évêque et théologien français, précepteur du Dauphin. Grand orateur sacré, il théorise l'absolutisme royal de droit divin.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Précepteur du Grand Dauphin</div>
+                <div class="character-modal-fact">Théoricien de l'absolutisme de droit divin</div>
+                <div class="character-modal-fact">Auteur d'oraisons funèbres célèbres</div>
+                <div class="character-modal-fact">Défenseur de l'orthodoxie catholique</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Théologien qui légitime religieusement l'absolutisme royal de Louis XIV.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Grand orateur sacré, ses écrits justifient théologiquement le pouvoir royal.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-luxembourg">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('luxembourg')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🏆</div>
+                <div class="character-modal-name">François-Henri de Luxembourg</div>
+                <div class="character-modal-subtitle">Le Tapissier de Notre-Dame</div>
+                <div class="character-modal-dates">1628-1695</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Maréchal de France, surnommé le 'Tapissier de Notre-Dame' pour ses nombreuses victoires. L'un des plus grands généraux de Louis XIV.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Vainqueur de Fleurus, Steenkerque et Landen</div>
+                <div class="character-modal-fact">Surnommé le 'Tapissier de Notre-Dame' pour ses drapeaux pris à l'ennemi</div>
+                <div class="character-modal-fact">Stratège redoutable de la guerre de la Ligue d'Augsbourg</div>
+                <div class="character-modal-fact">Respecté par ses ennemis pour sa loyauté chevaleresque</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Général victorieux qui maintient la supériorité militaire française malgré les coalitions.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Tacticien génial, ses victoires sauvent la France de l'encerclement européen.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-vauban">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('vauban')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🏰</div>
+                <div class="character-modal-name">Sébastien Le Prestre de Vauban</div>
+                <div class="character-modal-subtitle">Le Maître des Fortifications</div>
+                <div class="character-modal-dates">1633-1707</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Ingénieur militaire et maréchal de France. Il révolutionne l'art de la fortification et de la poliorcétique.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Créateur du système de fortifications français</div>
+                <div class="character-modal-fact">Fortifie plus de 300 places fortes</div>
+                <div class="character-modal-fact">Invente de nouvelles techniques de siège</div>
+                <div class="character-modal-fact">Théoricien de la guerre de siège moderne</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Génie militaire qui protège les frontières françaises par ses fortifications.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Ses fortifications protègent la France, ses méthodes révolutionnent l'art militaire.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-philippe">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('philippe')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">👑</div>
+                <div class="character-modal-name">Philippe d'Anjou</div>
+                <div class="character-modal-subtitle">Le Roi d'Espagne</div>
+                <div class="character-modal-dates">1683-1746</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Petit-fils de Louis XIV, il devient Philippe V d'Espagne. Son accession au trône déclenche la guerre de Succession d'Espagne.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Petit-fils de Louis XIV</div>
+                <div class="character-modal-fact">Devient Philippe V d'Espagne en 1700</div>
+                <div class="character-modal-fact">Son règne déclenche une guerre européenne</div>
+                <div class="character-modal-fact">Fonde la dynastie des Bourbons d'Espagne</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Prince français qui unit les couronnes de France et d'Espagne, bouleversant l'équilibre européen.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Fondateur de la dynastie espagnole des Bourbons, son règne transforme l'Espagne.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="character-modal" id="modal-marlborough">
+        <div class="character-modal-content">
+            <span class="character-modal-close" onclick="closeCharacterModal('marlborough')">&times;</span>
+            <div class="character-modal-header">
+                <div class="character-modal-icon">🇬🇧</div>
+                <div class="character-modal-name">John Churchill de Marlborough</div>
+                <div class="character-modal-subtitle">Le Général Anglais</div>
+                <div class="character-modal-dates">1650-1722</div>
+            </div>
+            <div class="character-modal-body">
+                <p class="character-modal-description">Général anglais, principal adversaire militaire de Louis XIV. Ses victoires affaiblissent la puissance française en Europe.</p>
+                <div class="character-modal-section-title">✨ Faits Marquants</div>
+                <div class="character-modal-fact">Vainqueur de Blenheim, Ramillies et Malplaquet</div>
+                <div class="character-modal-fact">Chef de la coalition anti-française</div>
+                <div class="character-modal-fact">Stratège redoutable et diplomate habile</div>
+                <div class="character-modal-fact">Contraint Louis XIV à négocier la paix</div>
+                <div class="character-modal-role">
+                    <div class="character-modal-role-title">Rôle Historique :</div>
+                    <div class="character-modal-role-text">Principal adversaire militaire de Louis XIV, il limite l'expansion française.</div>
+                </div>
+                <div class="character-modal-heritage">
+                    <div class="character-modal-heritage-title">Héritage :</div>
+                    <div class="character-modal-heritage-text">Général légendaire, ses victoires marquent le déclin de l'hégémonie française.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
