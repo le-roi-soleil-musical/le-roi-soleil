@@ -146,3 +146,20 @@ document.querySelectorAll('.character-modal').forEach(modal => {
         }
     });
 });
+
+// HAMBURGER MENU
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Fermer le menu quand on clique sur un lien
+document.querySelectorAll('#navMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
