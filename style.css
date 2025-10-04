@@ -1872,6 +1872,15 @@ footer p {
     .cast-card {
         padding: 15px;
     }
+
+    /* Loader responsive - remonter le soleil */
+    .sun-container {
+        transform: translateY(-50px);
+    }
+
+    .loader-text {
+        margin-top: 10px;
+    }
 }
 
 /* Inline styles converted to classes */
