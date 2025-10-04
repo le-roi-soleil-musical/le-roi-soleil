@@ -1661,6 +1661,7 @@ footer p {
 
     nav {
         padding: 10px 0;
+        border-bottom: none;
     }
 
     nav ul {
