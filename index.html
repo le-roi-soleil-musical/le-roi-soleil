@@ -35,6 +35,7 @@
             <li><a href="#galerie">Galerie</a></li>
             <li><a href="#informations">Informations</a></li>
             <li><a href="#dates">Représentations</a></li>
+            <li><a href="#distribution">Distribution</a></li>
             <li><a href="#histoire">Histoire</a></li>
             <li><a href="#spectacle">Le Spectacle</a></li>
             <li><a href="#apropos">À Propos</a></li>
@@ -118,6 +119,18 @@
                 <h3>Créateur de Bijoux</h3>
                 <p>Bijoux artisanaux et créations originales à découvrir et à offrir</p>
             </div>
+        </div>
+    </section>
+
+    <!-- DISTRIBUTION SECTION -->
+    <section id="distribution">
+        <h2 class="section-title distribution-title">🎬 Distribution des Rôles</h2>
+        <p class="distribution-subtitle">Découvrez qui incarne chaque personnage de la pièce</p>
+        <div class="distribution-cta">
+            <button class="distribution-button" id="openDistributionModal">
+                <span class="distribution-button-icon">🎭</span>
+                <span class="distribution-button-text">Voir la distribution complète</span>
+            </button>
         </div>
     </section>
 
@@ -870,6 +883,30 @@
                     <div class="character-modal-heritage-title">Héritage :</div>
                     <div class="character-modal-heritage-text">Général légendaire, ses victoires marquent le déclin de l'hégémonie française.</div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISTRIBUTION MODAL -->
+    <div class="distribution-modal" id="distributionModal">
+        <div class="distribution-modal-content">
+            <span class="distribution-modal-close" id="closeDistributionModal">&times;</span>
+            <h2 class="distribution-modal-title">🎬 Distribution des Rôles</h2>
+
+            <div class="role-filters">
+                <button class="role-filter active" data-role="all">Tous les rôles</button>
+                <button class="role-filter" data-role="principal">Rôles principaux</button>
+                <button class="role-filter" data-role="C">Courtisane</button>
+                <button class="role-filter" data-role="P">Figure du peuple</button>
+                <button class="role-filter" data-role="S">Soldat</button>
+                <button class="role-filter" data-role="M">Médecin</button>
+                <button class="role-filter" data-role="E">Évêque</button>
+                <button class="role-filter" data-role="D">Dame de cour</button>
+                <button class="role-filter" data-role="Da">Danseur</button>
+            </div>
+
+            <div class="cast-grid" id="castGrid">
+                <!-- Les acteurs seront insérés ici par JavaScript -->
             </div>
         </div>
     </div>

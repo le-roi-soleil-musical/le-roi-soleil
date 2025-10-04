@@ -163,3 +163,85 @@ document.querySelectorAll('#navMenu a').forEach(link => {
         navMenu.classList.remove('active');
     });
 });
+
+// DISTRIBUTION MODAL
+const castData = [
+    { role: "Louis XIV", actors: ["Matthieu DESROSIERS"], type: "principal" },
+    { role: "Marie Mancini", actors: ["Valentine DELASSUS"], type: "principal" },
+    { role: "Monsieur, Frère du Roi", actors: ["Emma RAYNAUD"], type: "principal" },
+    { role: "Madame de Montespan", actors: ["Chloé RAMBAUD"], type: "principal" },
+    { role: "Madame de Maintenon", actors: ["Mila LE NESTOUR"], type: "principal" },
+    { role: "Le Duc de Beaufort", actors: ["Alice AUGEREAU"], type: "principal" },
+    { role: "Isabelle", actors: ["Inès BERGER"], type: "principal" },
+    { role: "Molière / Mazarin", actors: ["Baptiste DESROSIERS"], type: "principal" },
+    { role: "Anne d'Autriche", actors: ["Léa DOUADY"], type: "principal" },
+    { role: "Ninon de l'Enclos", actors: ["Inga Lee YESKOVA"], type: "principal" },
+    { role: "Mademoiselle de Lisieux", actors: ["Eyleen DOUAT"], type: "principal" },
+    { role: "La voisin", actors: ["Louise OZIÈS FOURNIER"], type: "C" },
+    { role: "L'Enfant", actors: ["Leyton GUILLOT"], type: "P" },
+    { role: "Colbert", actors: ["Arthur DEVAUX"], type: "P" },
+    { role: "Paul Scarron", actors: ["Chloé ROUMANUS"], type: "P" },
+    { role: "Courtisane", actors: ["Chloé WORINGER"], type: "C" },
+    { role: "Femme de chambre", actors: ["Elise DEVAUX"], type: "P" },
+    { role: "Danseur", actors: ["Madeline QUANTIN", "Manon ALLIAUME", "Lucas LIAUBET", "Juliette PEDRON", "Justine DOUADY", "Colette DISNEY", "Charlotte LESPETS", "Santina GRECH"], type: "Da" },
+    { role: "Dame de cour", actors: ["Madeline QUANTIN", "Manon ALLIAUME", "Lucas LIAUBET", "Juliette PEDRON", "Justine DOUADY", "Colette DISNEY", "Charlotte LESPETS"], type: "D" }
+];
+
+const distributionModal = document.getElementById('distributionModal');
+const openDistributionBtn = document.getElementById('openDistributionModal');
+const closeDistributionBtn = document.getElementById('closeDistributionModal');
+const castGrid = document.getElementById('castGrid');
+const roleFilters = document.querySelectorAll('.role-filter');
+
+// Ouvrir la modale
+openDistributionBtn.addEventListener('click', () => {
+    distributionModal.classList.add('active');
+    displayCast('all');
+});
+
+// Fermer la modale
+closeDistributionBtn.addEventListener('click', () => {
+    distributionModal.classList.remove('active');
+});
+
+// Fermer en cliquant en dehors
+distributionModal.addEventListener('click', (e) => {
+    if (e.target === distributionModal) {
+        distributionModal.classList.remove('active');
+    }
+});
+
+// Filtres de rôles
+roleFilters.forEach(filter => {
+    filter.addEventListener('click', () => {
+        roleFilters.forEach(f => f.classList.remove('active'));
+        filter.classList.add('active');
+        const roleType = filter.getAttribute('data-role');
+        displayCast(roleType);
+    });
+});
+
+// Afficher la distribution
+function displayCast(filterType) {
+    castGrid.innerHTML = '';
+
+    const filteredCast = filterType === 'all'
+        ? castData
+        : castData.filter(cast => cast.type === filterType);
+
+    filteredCast.forEach(cast => {
+        const castCard = document.createElement('div');
+        castCard.className = 'cast-card';
+
+        const actorsList = cast.actors.map(actor =>
+            `<span class="cast-card-actor-name">${actor}</span>`
+        ).join('');
+
+        castCard.innerHTML = `
+            <div class="cast-card-role">${cast.role}</div>
+            <div class="cast-card-actor">${actorsList}</div>
+        `;
+
+        castGrid.appendChild(castCard);
+    });
+}
