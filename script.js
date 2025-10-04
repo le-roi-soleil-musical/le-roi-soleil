@@ -1,19 +1,29 @@
-// LOADER
+// LOADER - Soleil Levant
 setTimeout(() => {
     document.getElementById('loader').classList.add('hidden');
     document.getElementById('nav').classList.add('visible');
     initHero();
-}, 3000);
+}, 5000);
 
-// Particles for loader
-const maskLoader = document.querySelector('.mask-loader');
-for (let i = 0; i < 20; i++) {
+// Particules dorées pour le loader
+const sunContainer = document.querySelector('.sun-container');
+for (let i = 0; i < 40; i++) {
     const particle = document.createElement('div');
     particle.className = 'particle';
-    particle.style.setProperty('--tx', `${Math.random() * 200 - 100}px`);
-    particle.style.setProperty('--ty', `${Math.random() * 200 - 100}px`);
-    particle.style.animationDelay = `${Math.random() * 2}s`;
-    maskLoader.appendChild(particle);
+
+    // Position aléatoire autour du soleil
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 60 + Math.random() * 40;
+    const x = Math.cos(angle) * distance;
+    const y = Math.sin(angle) * distance;
+
+    particle.style.left = `calc(50% + ${x}px)`;
+    particle.style.top = `calc(50% + ${y}px)`;
+    particle.style.setProperty('--drift', `${Math.random() * 100 - 50}px`);
+    particle.style.animationDelay = `${Math.random() * 4}s`;
+    particle.style.animationDuration = `${3 + Math.random() * 2}s`;
+
+    sunContainer.appendChild(particle);
 }
 
 // HERO CARDS CIRCLE
